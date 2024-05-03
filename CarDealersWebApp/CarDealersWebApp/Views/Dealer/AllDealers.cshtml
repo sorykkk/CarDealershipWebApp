@@ -1,0 +1,17 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model CarDealersWebApp.Models.Entities.Dealer
+<h1>See all available Dealers:</h1>
+
+@if (Model != null)
+{
+    <ul>
+        <li>@Model.Name - @Model.Address, @Model.Country</li>
+    </ul>
+}
+
+else
+{
+    <p>No dealer found.</p>
+}

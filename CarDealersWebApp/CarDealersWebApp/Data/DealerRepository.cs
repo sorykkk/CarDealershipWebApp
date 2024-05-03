@@ -7,7 +7,7 @@ using System.Data.Entity;
 
 namespace CarDealersWebApp.Data
 {
-    public class DealerRepository : SqLiteBaseRepository
+    public class DealerRepository : SqLiteBaseRepository, IDealerRepository
     {
         public void SaveDealer(Dealer dealer)
         {
@@ -35,7 +35,7 @@ namespace CarDealersWebApp.Data
                 cnn.Execute(
                     @"create table Dealer
                     (
-                        ID         integer identity primary key AUTOINCREMENT,
+                        ID         INTEGER PRIMARY KEY AUTOINCREMENT,
                         Name       varchar(100) not null,
                         Address    varchar(100) not null,
                         Country    varchar(100) not null,
@@ -48,8 +48,10 @@ namespace CarDealersWebApp.Data
         }
         public Dealer GetDealer(int id)
         {
-            if (!File.Exists(DbFile)) 
+            if (!File.Exists(DbFile))
+            {
                 return null;
+            }
             using (var cnn = DbConnection())
             {
                 cnn.Open();
@@ -57,6 +59,7 @@ namespace CarDealersWebApp.Data
                     @"SELECT Id, Name, Address, Country, IsSelling, Cars
                         FROM Dealer
                             WHERE id = @id", new {id}).FirstOrDefault();
+
                 return result;
             }
         }

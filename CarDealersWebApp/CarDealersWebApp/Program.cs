@@ -1,13 +1,15 @@
 //using CarDealersWebApp.Data.Context;
 //using CarDealersWebApp.Data.Contracts;
-//using CarDealersWebApp.Data.Repository;
+using CarDealersWebApp.Data;
+
+using CarDealersWebApp.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 //builder.Services.AddSingleton<DapperContext>();
-//builder.Services.AddScoped<IDealerRepository, DealerRepository>();
+builder.Services.AddScoped<IDealerRepository, DealerRepository>();
 builder.Services.AddControllers();
 
 var app = builder.Build();
