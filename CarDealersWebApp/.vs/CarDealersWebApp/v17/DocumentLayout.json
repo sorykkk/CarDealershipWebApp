@@ -1,0 +1,133 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\sbeleaga\\OneDrive - Intel Corporation\\Desktop\\CarDealershipWebApp\\CarDealersWebApp\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B86ADA72-C39E-47E2-9559-B78B175076C5}|CarDealersWebApp\\CarDealersWebApp.csproj|c:\\users\\sbeleaga\\onedrive - intel corporation\\desktop\\cardealershipwebapp\\cardealerswebapp\\cardealerswebapp\\data\\dealerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B86ADA72-C39E-47E2-9559-B78B175076C5}|CarDealersWebApp\\CarDealersWebApp.csproj|solutionrelative:cardealerswebapp\\data\\dealerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B86ADA72-C39E-47E2-9559-B78B175076C5}|CarDealersWebApp\\CarDealersWebApp.csproj|c:\\users\\sbeleaga\\onedrive - intel corporation\\desktop\\cardealershipwebapp\\cardealerswebapp\\cardealerswebapp\\data\\idealerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B86ADA72-C39E-47E2-9559-B78B175076C5}|CarDealersWebApp\\CarDealersWebApp.csproj|solutionrelative:cardealerswebapp\\data\\idealerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B86ADA72-C39E-47E2-9559-B78B175076C5}|CarDealersWebApp\\CarDealersWebApp.csproj|c:\\users\\sbeleaga\\onedrive - intel corporation\\desktop\\cardealershipwebapp\\cardealerswebapp\\cardealerswebapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B86ADA72-C39E-47E2-9559-B78B175076C5}|CarDealersWebApp\\CarDealersWebApp.csproj|solutionrelative:cardealerswebapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B86ADA72-C39E-47E2-9559-B78B175076C5}|CarDealersWebApp\\CarDealersWebApp.csproj|c:\\users\\sbeleaga\\onedrive - intel corporation\\desktop\\cardealershipwebapp\\cardealerswebapp\\cardealerswebapp\\models\\entities\\dealer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B86ADA72-C39E-47E2-9559-B78B175076C5}|CarDealersWebApp\\CarDealersWebApp.csproj|solutionrelative:cardealerswebapp\\models\\entities\\dealer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B86ADA72-C39E-47E2-9559-B78B175076C5}|CarDealersWebApp\\CarDealersWebApp.csproj|c:\\users\\sbeleaga\\onedrive - intel corporation\\desktop\\cardealershipwebapp\\cardealerswebapp\\cardealerswebapp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{B86ADA72-C39E-47E2-9559-B78B175076C5}|CarDealersWebApp\\CarDealersWebApp.csproj|solutionrelative:cardealerswebapp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B86ADA72-C39E-47E2-9559-B78B175076C5}|CarDealersWebApp\\CarDealersWebApp.csproj|c:\\users\\sbeleaga\\onedrive - intel corporation\\desktop\\cardealershipwebapp\\cardealerswebapp\\cardealerswebapp\\models\\entities\\car.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B86ADA72-C39E-47E2-9559-B78B175076C5}|CarDealersWebApp\\CarDealersWebApp.csproj|solutionrelative:cardealerswebapp\\models\\entities\\car.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B86ADA72-C39E-47E2-9559-B78B175076C5}|CarDealersWebApp\\CarDealersWebApp.csproj|c:\\users\\sbeleaga\\onedrive - intel corporation\\desktop\\cardealershipwebapp\\cardealerswebapp\\cardealerswebapp\\models\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B86ADA72-C39E-47E2-9559-B78B175076C5}|CarDealersWebApp\\CarDealersWebApp.csproj|solutionrelative:cardealerswebapp\\models\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\sbeleaga\\OneDrive - Intel Corporation\\Desktop\\CarDealershipWebApp\\CarDealersWebApp\\CarDealersWebApp\\appsettings.json",
+              "RelativeDocumentMoniker": "CarDealersWebApp\\appsettings.json",
+              "ToolTip": "C:\\Users\\sbeleaga\\OneDrive - Intel Corporation\\Desktop\\CarDealershipWebApp\\CarDealersWebApp\\CarDealersWebApp\\appsettings.json",
+              "RelativeToolTip": "CarDealersWebApp\\appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-05-02T19:14:02.926Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DealerRepository.cs",
+              "DocumentMoniker": "C:\\Users\\sbeleaga\\OneDrive - Intel Corporation\\Desktop\\CarDealershipWebApp\\CarDealersWebApp\\CarDealersWebApp\\Data\\DealerRepository.cs",
+              "RelativeDocumentMoniker": "CarDealersWebApp\\Data\\DealerRepository.cs",
+              "ToolTip": "C:\\Users\\sbeleaga\\OneDrive - Intel Corporation\\Desktop\\CarDealershipWebApp\\CarDealersWebApp\\CarDealersWebApp\\Data\\DealerRepository.cs",
+              "RelativeToolTip": "CarDealersWebApp\\Data\\DealerRepository.cs",
+              "ViewState": "AQIAAC8AAAAAAAAAAAAuwDAAAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T18:18:06.55Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Dealer.cs",
+              "DocumentMoniker": "C:\\Users\\sbeleaga\\OneDrive - Intel Corporation\\Desktop\\CarDealershipWebApp\\CarDealersWebApp\\CarDealersWebApp\\Models\\Entities\\Dealer.cs",
+              "RelativeDocumentMoniker": "CarDealersWebApp\\Models\\Entities\\Dealer.cs",
+              "ToolTip": "C:\\Users\\sbeleaga\\OneDrive - Intel Corporation\\Desktop\\CarDealershipWebApp\\CarDealersWebApp\\CarDealersWebApp\\Models\\Entities\\Dealer.cs",
+              "RelativeToolTip": "CarDealersWebApp\\Models\\Entities\\Dealer.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T10:51:58.089Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "IDealerRepository.cs",
+              "DocumentMoniker": "C:\\Users\\sbeleaga\\OneDrive - Intel Corporation\\Desktop\\CarDealershipWebApp\\CarDealersWebApp\\CarDealersWebApp\\Data\\IDealerRepository.cs",
+              "RelativeDocumentMoniker": "CarDealersWebApp\\Data\\IDealerRepository.cs",
+              "ToolTip": "C:\\Users\\sbeleaga\\OneDrive - Intel Corporation\\Desktop\\CarDealershipWebApp\\CarDealersWebApp\\CarDealersWebApp\\Data\\IDealerRepository.cs",
+              "RelativeToolTip": "CarDealersWebApp\\Data\\IDealerRepository.cs",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAcwAwAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T17:27:36.668Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Car.cs",
+              "DocumentMoniker": "C:\\Users\\sbeleaga\\OneDrive - Intel Corporation\\Desktop\\CarDealershipWebApp\\CarDealersWebApp\\CarDealersWebApp\\Models\\Entities\\Car.cs",
+              "RelativeDocumentMoniker": "CarDealersWebApp\\Models\\Entities\\Car.cs",
+              "ToolTip": "C:\\Users\\sbeleaga\\OneDrive - Intel Corporation\\Desktop\\CarDealershipWebApp\\CarDealersWebApp\\CarDealersWebApp\\Models\\Entities\\Car.cs",
+              "RelativeToolTip": "CarDealersWebApp\\Models\\Entities\\Car.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T10:54:04Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\sbeleaga\\OneDrive - Intel Corporation\\Desktop\\CarDealershipWebApp\\CarDealersWebApp\\CarDealersWebApp\\Program.cs",
+              "RelativeDocumentMoniker": "CarDealersWebApp\\Program.cs",
+              "ToolTip": "C:\\Users\\sbeleaga\\OneDrive - Intel Corporation\\Desktop\\CarDealershipWebApp\\CarDealersWebApp\\CarDealersWebApp\\Program.cs",
+              "RelativeToolTip": "CarDealersWebApp\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAACAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-01T23:00:37.015Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\sbeleaga\\OneDrive - Intel Corporation\\Desktop\\CarDealershipWebApp\\CarDealersWebApp\\CarDealersWebApp\\Models\\Entities\\User.cs",
+              "RelativeDocumentMoniker": "CarDealersWebApp\\Models\\Entities\\User.cs",
+              "ToolTip": "C:\\Users\\sbeleaga\\OneDrive - Intel Corporation\\Desktop\\CarDealershipWebApp\\CarDealersWebApp\\CarDealersWebApp\\Models\\Entities\\User.cs",
+              "RelativeToolTip": "CarDealersWebApp\\Models\\Entities\\User.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T10:38:44.29Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
