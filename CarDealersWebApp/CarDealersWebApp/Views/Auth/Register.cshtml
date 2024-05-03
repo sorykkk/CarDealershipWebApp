@@ -1,0 +1,44 @@
+﻿@model CarDealersWebApp.Models.Auth.RegistrationViewModel
+@{
+    ViewBag.Title = "Registration";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+<br />
+<form method="post">
+    <div class="mb-3 col-md-3">
+        <label for="inputName" class="form-label">Name</label>
+        <input type="text" class="form-control" id="inputName" aria-describedby="nameHelp" asp-for="Name">
+        <div id="nameHelp" class="form-text">It can be your name / your company.</div>
+    </div>
+    <div class="mb-3 col-md-6">
+        <label for="inputEmail1" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="inputEmail1" aria-describedby="emailHelp" asp-for="Email">
+        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    <div class="mb-3 col-md-6">
+        <label for="inputPassword" class="form-label">Password</label>
+        <input type="password" class="form-control" id="inputPassword" asp-for="Password">
+    </div>
+    <div class="col-md-3">
+        <label for="inputPhone">Phone</label>
+        <input type="text" class="form-control" id="inputPhone" asp-for="Phone">
+    </div>
+    <div class="row mt-3 mb-3">
+        <div class="col-md-3 me-3">
+            <label for="inputAddress">Address</label>
+            <input type="text" class="form-control" id="inputAddress" placeholder="Unirii str. 20/2" asp-for="Address">
+        </div>
+        <div class="col-md-3">
+            <label for="inputCountry">Country</label>
+            <input type="text" class="form-control" id="inputCountry" placeholder="Republic of Moldova" asp-for="Country">
+        </div>
+    </div>
+    <div class="mb-3 mt-4 form-check">
+        <input type="checkbox" class="form-check-input" id="agreementCheck">
+        <label class="form-check-label" for="agreementCheck">Agree to all terms and conditions</label>
+    </div>
+    <button type="submit" class="btn btn-primary mb-3">Create Account</button>
+</form>
+

@@ -1,8 +1,7 @@
 //using CarDealersWebApp.Data.Context;
 //using CarDealersWebApp.Data.Contracts;
-using CarDealersWebApp.Data;
-
-using CarDealersWebApp.Data;
+using CarDealersWebApp.Data.Interfaces;
+using CarDealersWebApp.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 

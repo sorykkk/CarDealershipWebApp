@@ -3,7 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 using CarDealersWebApp.Models.Entities;
+using CarDealersWebApp.Data.Repositories;
+using System.Data.Common;
 using CarDealersWebApp.Data;
+
 
 namespace CarDealersWebApp.Controllers
 {
@@ -19,6 +22,27 @@ namespace CarDealersWebApp.Controllers
             _logger = logger;
         }
 
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        /*[HttpPost]
+        public IActionResult Register(User user)
+        {
+            using (var cnn = DbConnection())
+            {
+                try
+                {
+                    if(ModelState.IsValid)
+                    {
+                        User regList = User.Registration
+                    }
+                }
+            }
+        }*/
+
         public IActionResult Index()
         {
             return View();
@@ -26,16 +50,6 @@ namespace CarDealersWebApp.Controllers
 
         public IActionResult Privacy()
         {
-            /*Dealer dealer = new Dealer();
-            dealer.Name = "Toyota";
-            dealer.Address = "Unirii str 20/2";
-            dealer.Country = "Moldova";
-            dealer.IsSelling = true;
-            dealer.Cars = null;
-
-            dealerRepo.SaveDealer(dealer);*/
-            
-
             return View();
         }
 
