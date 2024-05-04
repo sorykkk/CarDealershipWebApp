@@ -1,4 +1,4 @@
-﻿using CarDealersWebApp.Models.Entities;
+﻿using CarDealersWebApp.Data.Entities;
 using System.Data.SQLite;
 
 namespace CarDealersWebApp.Data.Interfaces

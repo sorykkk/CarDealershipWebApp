@@ -1,5 +1,5 @@
-﻿using CarDealersWebApp.Data.Interfaces;
-using CarDealersWebApp.Models.Entities;
+﻿using CarDealersWebApp.Data.Entities;
+using CarDealersWebApp.Data.Interfaces;
 using Dapper;
 using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Tokens;

@@ -1,11 +1,7 @@
+using CarDealersWebApp.Data.Repositories;
 using CarDealersWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-
-using CarDealersWebApp.Models.Entities;
-using CarDealersWebApp.Data.Repositories;
-using System.Data.Common;
-using CarDealersWebApp.Data;
 
 
 namespace CarDealersWebApp.Controllers

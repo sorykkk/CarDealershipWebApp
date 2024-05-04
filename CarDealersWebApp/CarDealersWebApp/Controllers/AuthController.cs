@@ -1,13 +1,19 @@
 ﻿using CarDealersWebApp.Models.Auth;
 using Microsoft.AspNetCore.Mvc;
 using CarDealersWebApp.Data.Repositories;
-using CarDealersWebApp.Models.Entities;
+using CarDealersWebApp.Services;
 
 namespace CarDealersWebApp.Controllers;
 
 public class AuthController : Controller
 {
-    private UserRepository userDatabase = new UserRepository();
+    private readonly IUserService userService;
+
+    public AuthController(IUserService userService)
+    {
+        this.userService = userService;
+    }
+
 
     [HttpGet]
     public IActionResult Register()
@@ -16,24 +22,31 @@ public class AuthController : Controller
     }
 
     [HttpPost]
-    public IActionResult Register(RegistrationViewModel viewModel)
+    public async Task<IActionResult> Register(RegistrationViewModel viewModel)
     {
-        var user = new User
+        if (!ModelState.IsValid)
         {
-            Name = viewModel.Name,
-            Email = viewModel.Email,
-            Password = viewModel.Password,
-            Phone = viewModel.Phone,
-            Country = viewModel.Country,
-            Address = viewModel.Address
-        };
+            return View(viewModel);
+        }
 
-        userDatabase.SaveUser(user);
+        await userService.CreateUserAsync(viewModel);
 
-        return View();
+        return RedirectToAction("Login");
     }
+    [HttpGet]
     public IActionResult Login()
     {
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult Login(LoginViewModel viewModel) {
+        string email = viewModel.Email;
+        string password = viewModel.Password;
+
+        //aici treb sa pun logica cand nu este gasit userul
+        //bool found =  userDatabase.ExistUser(email, password);
+
         return View();
     }
 }

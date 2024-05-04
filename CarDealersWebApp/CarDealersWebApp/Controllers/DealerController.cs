@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using CarDealersWebApp.Models.Entities;
 using CarDealersWebApp.Data.Interfaces;
+using CarDealersWebApp.Data.Entities;
 
 namespace CarDealersWebApp.Controllers
 {

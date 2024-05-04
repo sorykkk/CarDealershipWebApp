@@ -1,11 +1,12 @@
-﻿using CarDealersWebApp.Models.Entities;
+﻿using CarDealersWebApp.Data.Entities;
 
 namespace CarDealersWebApp.Data.Interfaces
 {
     public interface IUserRepository
     {
-        void SaveUser(User user);
-        User? GetUser(int Id);
-        User? DeleteUser(int Id);
+        int SaveUser(User user);
+        User? GetUser(int id);
+        User? GetUserByEmail(string email);
+        User? DeleteUser(int id);
     }
 }
