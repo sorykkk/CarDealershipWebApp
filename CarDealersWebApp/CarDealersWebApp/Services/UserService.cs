@@ -10,7 +10,7 @@ public class UserService : IUserService
     public UserService(IUserRepository userRepository) =>
         this.userRepository = userRepository;
 
-    public Task CreateUserAsync(RegistrationViewModel registerViewModel)
+    public async Task CreateUserAsync(RegistrationViewModel registerViewModel)
     {
         var hashedPassword = BCrypt.Net.BCrypt.HashPassword(registerViewModel.Password);
         var user = new User
@@ -23,9 +23,7 @@ public class UserService : IUserService
             Address = registerViewModel.Address ?? string.Empty,
         };
 
-        userRepository.SaveUser(user);
-
-        return Task.CompletedTask;
+        await userRepository.SaveUser(user);
     }
 
     public Task<User> GetUserAsync(int userId)

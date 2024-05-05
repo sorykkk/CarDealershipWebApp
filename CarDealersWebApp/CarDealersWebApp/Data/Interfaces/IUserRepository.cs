@@ -4,9 +4,9 @@ namespace CarDealersWebApp.Data.Interfaces
 {
     public interface IUserRepository
     {
-        int SaveUser(User user);
-        User? GetUser(int id);
-        User? GetUserByEmail(string email);
-        User? DeleteUser(int id);
+        Task <int> SaveUser(User user);
+        Task <User?> GetUser(int id);
+        Task <User?> GetUserByEmail(string email);
+        Task <User?> DeleteUser(int id);
     }
 }

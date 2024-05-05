@@ -2,6 +2,7 @@
 //using CarDealersWebApp.Data.Contracts;
 using CarDealersWebApp.Data.Interfaces;
 using CarDealersWebApp.Data.Repositories;
+using CarDealersWebApp.Models.Validation;
 using CarDealersWebApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 //builder.Services.AddSingleton<DapperContext>();
-builder.Services.AddScoped<IDealerRepository, DealerRepository>();
+//builder.Services.AddScoped<IDealerRepository, DealerRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddControllers();

@@ -15,7 +15,7 @@ namespace CarDealersWebApp.Data.Repositories
                 CreateUserTable();
         }
 
-        public int SaveUser(User user)
+        public async Task<int> SaveUser(User user)
         {
             using var cnn = DbConnection();
             cnn.Open();
@@ -28,7 +28,7 @@ namespace CarDealersWebApp.Data.Repositories
             return userId;
         }
 
-        public User? GetUserByEmail(string email)
+        public async Task <User?> GetUserByEmail(string email)
         {
             using var cnn = DbConnection();
             cnn.Open();
@@ -42,40 +42,35 @@ namespace CarDealersWebApp.Data.Repositories
             return dbUser;
         }
 
-        public User? DeleteUser(int Id)
+        public async Task <User?> DeleteUser(int Id)
         {
-            using (var cnn = DbConnection())
-            {
+            using var cnn = DbConnection() ;
                 cnn.Open();
                 User? deleted = cnn.Query<User>(
                     $@"DELETE FROM {_tableName} WHERE ID = @Id", new { Id }).FirstOrDefault();
 
                 return deleted;
-            }
         }
 
         private static void CreateUserTable()
         {
-            using (var cnn = DbConnection())
-            {
-                cnn.Open();
-                cnn.Execute(
-                    $@"create table {_tableName}
-                    (
-                        ID         INTEGER PRIMARY KEY AUTOINCREMENT,
-                        Name       varchar(100) not null,
-                        Phone      varchar(20),
-                        Password   varchar(255) not null,
-                        Email      varchar(100) not null,
-                        Address    varchar(100),
-                        Country    varchar(100)
-                    )"
-                    );
-            }
-
+            using var cnn = DbConnection();
+            cnn.Open();
+            cnn.Execute(
+                $@"create table {_tableName}
+                (
+                    ID         INTEGER PRIMARY KEY AUTOINCREMENT,
+                    Name       varchar(100) not null,
+                    Phone      varchar(20),
+                    Password   varchar(255) not null,
+                    Email      varchar(100) not null,
+                    Address    varchar(100),
+                    Country    varchar(100)
+                )"
+                );
         }
 
-        public User? GetUser(int id)
+        public async Task <User?> GetUser(int id)
         {
             using var cnn = DbConnection();
             cnn.Open();

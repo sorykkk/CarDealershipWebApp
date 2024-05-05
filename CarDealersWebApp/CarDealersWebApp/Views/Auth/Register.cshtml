@@ -5,29 +5,37 @@
 
 <h2>@ViewBag.Title</h2>
 <hr />
-<br />
-<form method="post" class="needs-validation" novalidate>
-    <div class="mb-3 col-md-3">
+
+<form method="post">
+
+    <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="isDealer" asp-for="IsDealer">
+        <label class="form-check-label" for="isDealer">Dealer</label>
+    </div>
+
+    <div class="mb-3 mt-3 col-md-3">
         <label for="inputName" class="form-label">Name</label>
         <input type="text" class="form-control" id="inputName" aria-describedby="nameHelp" asp-for="Name">
         <span asp-validation-for="Name" class="text-danger"></span>
         <div id="nameHelp" class="form-text">It can be your name / your company.</div>
     </div>
-    <div class="mb-3 col-md-6">
+    <div class="mb-3 col-md-6 has-validation">
         <label for="inputEmail1" class="form-label">Email address</label>
         <input type="email" class="form-control" id="inputEmail1" aria-describedby="emailHelp" asp-for="Email">
         <span asp-validation-for="Email" class="text-danger"></span>
         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
     </div>
-    <div class="mb-3 col-md-6">
-        <label for="inputPassword" class="form-label">Password</label>
-        <input type="password" class="form-control" id="inputPassword" asp-for="Password">
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
-    <div class="mb-3 col-md-6">
-        <label for="inputConfPassword" class="form-label">Confirm Password</label>
-        <input type="password" class="form-control" id="inputConfPassword" asp-for="ConfirmPassword">
-        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+    <div class="row">
+        <div class="mb-3 col-md-3 me-3">
+            <label for="inputPassword" class="form-label">Password</label>
+            <input type="password" class="form-control" id="inputPassword" asp-for="Password">
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="mb-3 col-md-3">
+            <label for="inputConfPassword" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="inputConfPassword" asp-for="ConfirmPassword">
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
     </div>
     <div class="col-md-3">
         <label for="inputPhone">Phone</label>
@@ -46,10 +54,12 @@
             <span asp-validation-for="Country" class="text-danger"></span>
         </div>
     </div>
-    <div class="mb-3 mt-4 form-check">
-        <input type="checkbox" class="form-check-input" id="agreementCheck">
-        <label class="form-check-label" for="agreementCheck">Agree to all terms and conditions</label>
+    <div class="mb-3 mt-4 ">
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="agreementCheck" asp-for="Agreement">
+            <label class="form-check-label" for="agreementCheck">Agree to all terms and conditions</label>
+        </div>
+        <span asp-validation-for="Agreement" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary mb-3">Create Account</button>
 </form>
-
