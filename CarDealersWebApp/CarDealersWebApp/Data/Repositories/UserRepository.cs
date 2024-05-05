@@ -19,11 +19,11 @@ namespace CarDealersWebApp.Data.Repositories
         {
             using var cnn = DbConnection();
             cnn.Open();
-            var userId = cnn.Query<int>(
+            var userId = (await cnn.QueryAsync<int>(
                 $@"INSERT INTO {_tableName}
                 ( Name, Phone, Password, Email, Address, Country ) VALUES
                 (@Name, @Phone, @Password, @Email, @Address, @Country);
-                select last_insert_rowid()", user).First();
+                select last_insert_rowid()", user)).First();
             
             return userId;
         }
@@ -33,11 +33,11 @@ namespace CarDealersWebApp.Data.Repositories
             using var cnn = DbConnection();
             cnn.Open();
 
-            User? dbUser = cnn.Query<User>(
+            User? dbUser = (await cnn.QueryAsync<User>(
                 $@"SELECT * 
                     FROM {_tableName} 
                         WHERE Email = @email", new {email}
-                ).FirstOrDefault();
+                )).FirstOrDefault();
 
             return dbUser;
         }
@@ -46,8 +46,8 @@ namespace CarDealersWebApp.Data.Repositories
         {
             using var cnn = DbConnection() ;
                 cnn.Open();
-                User? deleted = cnn.Query<User>(
-                    $@"DELETE FROM {_tableName} WHERE ID = @Id", new { Id }).FirstOrDefault();
+                User? deleted = (await cnn.QueryAsync<User>(
+                    $@"DELETE FROM {_tableName} WHERE ID = @Id", new { Id })).FirstOrDefault();
 
                 return deleted;
         }
@@ -74,10 +74,10 @@ namespace CarDealersWebApp.Data.Repositories
         {
             using var cnn = DbConnection();
             cnn.Open();
-            User? result = cnn.Query<User>(
+            User? result = (await cnn.QueryAsync<User>(
                 $@"SELECT *
                     FROM {_tableName}
-                        WHERE id = @id", new { id }).FirstOrDefault();
+                        WHERE id = @id", new { id })).FirstOrDefault();
 
             return result;
         }

@@ -1,7 +1,14 @@
-﻿namespace CarDealersWebApp.Models.Auth;
+﻿using System.ComponentModel.DataAnnotations;
+using CarDealersWebApp.Models.Validation.LogIn;
+
+namespace CarDealersWebApp.Models.Auth;
 
 public class LoginViewModel
 {
-    public string Email { get; set; }
-    public string Password { get; set; }
+    [Required(ErrorMessage = "Email is required")]
+    public string Email { get; set; } = string.Empty;
+
+    [IncorrectCredentials(nameof(Email))]
+    [Required(ErrorMessage = "Password is required")]
+    public string Password { get; set; } = string.Empty;
 }

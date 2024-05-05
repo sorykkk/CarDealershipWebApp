@@ -1,4 +1,4 @@
-﻿using CarDealersWebApp.Models.Validation;
+﻿using CarDealersWebApp.Models.Validation.SignUp;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
@@ -12,7 +12,7 @@ public class RegistrationViewModel
     [Required(ErrorMessage = "Name is required")]
     public string Name { get; set; } = string.Empty;
 
-    [DealerRequired(nameof(Phone), nameof(IsDealer))]
+    [DealerRequired(nameof(IsDealer), "Phone")]
     public string? Phone { get; set; }
 
     [Required(ErrorMessage ="Password is required")]
@@ -29,10 +29,10 @@ public class RegistrationViewModel
     [EmailAddress]
     public string Email { get; set; } = string.Empty;
 
-    [DealerRequired(nameof(Address), nameof(IsDealer))]
+    [DealerRequired(nameof(IsDealer), "Address")]
     public string? Address { get; set; }
 
-    [DealerRequired(nameof(Country), nameof(IsDealer))]
+    [DealerRequired(nameof(IsDealer), "Country")]
     public string? Country { get; set; }
 
     [Range(typeof(bool), "true", "true", ErrorMessage = "You must agree before submitting.")]

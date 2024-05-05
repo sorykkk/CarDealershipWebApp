@@ -1,6 +1,8 @@
 ﻿using CarDealersWebApp.Data.Entities;
 using CarDealersWebApp.Data.Interfaces;
 using CarDealersWebApp.Models.Auth;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace CarDealersWebApp.Services;
 
@@ -12,7 +14,10 @@ public class UserService : IUserService
 
     public async Task CreateUserAsync(RegistrationViewModel registerViewModel)
     {
-        var hashedPassword = BCrypt.Net.BCrypt.HashPassword(registerViewModel.Password);
+        string hashedPassword;//BCrypt.Net.BCrypt.HashPassword(registerViewModel.Password);
+        using SHA256 sha256 = SHA256.Create();
+        byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(registerViewModel.Password));
+        hashedPassword = BitConverter.ToString(bytes).Replace("-", "").ToLower();
         var user = new User
         {
             Name = registerViewModel.Name,

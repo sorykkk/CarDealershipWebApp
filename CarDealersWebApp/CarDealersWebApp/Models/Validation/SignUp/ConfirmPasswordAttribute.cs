@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CarDealersWebApp.Models.Validation
+namespace CarDealersWebApp.Models.Validation.SignUp
 {
     public class ConfirmPasswordAttribute : ValidationAttribute
     {

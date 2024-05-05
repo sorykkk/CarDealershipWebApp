@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using CarDealersWebApp.Data.Repositories;
 using CarDealersWebApp.Services;
+using CarDealersWebApp.Data.Entities;
 
 namespace CarDealersWebApp.Controllers;
 
@@ -33,6 +34,7 @@ public class AuthController : Controller
 
         return RedirectToAction("Login");
     }
+
     [HttpGet]
     public IActionResult Login()
     {
@@ -41,12 +43,12 @@ public class AuthController : Controller
 
     [HttpPost]
     public IActionResult Login(LoginViewModel viewModel) {
-        string email = viewModel.Email;
-        string password = viewModel.Password;
 
-        //aici treb sa pun logica cand nu este gasit userul
-        //bool found =  userDatabase.ExistUser(email, password);
+        if(!ModelState.IsValid)
+        {
+            return View(viewModel);
+        }
 
-        return View();
+        return RedirectToAction("Index", "Home");
     }
 }
