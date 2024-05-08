@@ -9,8 +9,6 @@ namespace CarDealersWebApp.Controllers
 
     public class HomeController : Controller
     {
-        private DealerRepository dealerRepo = new DealerRepository();
-
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -23,21 +21,6 @@ namespace CarDealersWebApp.Controllers
         {
             return View();
         }
-
-        /*[HttpPost]
-        public IActionResult Register(User user)
-        {
-            using (var cnn = DbConnection())
-            {
-                try
-                {
-                    if(ModelState.IsValid)
-                    {
-                        User regList = User.Registration
-                    }
-                }
-            }
-        }*/
 
         public IActionResult Index()
         {

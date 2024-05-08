@@ -14,7 +14,7 @@ public class UserService : IUserService
 
     public async Task CreateUserAsync(RegistrationViewModel registerViewModel)
     {
-        string hashedPassword;//BCrypt.Net.BCrypt.HashPassword(registerViewModel.Password);
+        string hashedPassword;
         using SHA256 sha256 = SHA256.Create();
         byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(registerViewModel.Password));
         hashedPassword = BitConverter.ToString(bytes).Replace("-", "").ToLower();
@@ -36,8 +36,10 @@ public class UserService : IUserService
         throw new NotImplementedException();
     }
 
-    public Task<User> GetUserAsync(string email)
+    public async Task<User> GetUserAsync(string email)
     {
-        throw new NotImplementedException();
+        User? user = await userRepository.GetUserByEmail(email);
+
+        return user;
     }
 }

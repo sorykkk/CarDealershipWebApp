@@ -42,12 +42,23 @@ public class AuthController : Controller
     }
 
     [HttpPost]
-    public IActionResult Login(LoginViewModel viewModel) {
+    public async Task <IActionResult> Login(LoginViewModel viewModel) {
 
         if(!ModelState.IsValid)
         {
             return View(viewModel);
         }
+
+        User loggedUser = await userService.GetUserAsync(viewModel.Email);
+        if (loggedUser == null)
+        {
+            return View(viewModel);
+        }
+
+        /*viewModel.Name = loggedUser.Name;
+        viewModel.IsLogged = true;*/
+        HttpContext.Session.SetString("Email", loggedUser.Email);
+        HttpContext.Session.SetString("Name", loggedUser.Name);
 
         return RedirectToAction("Index", "Home");
     }
