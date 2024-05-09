@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using CarDealersWebApp.Data.Repositories;
 using CarDealersWebApp.Services;
 using CarDealersWebApp.Data.Entities;
+using CarDealersWebApp.Exceptions;
 
 namespace CarDealersWebApp.Controllers;
 
@@ -30,7 +31,14 @@ public class AuthController : Controller
             return View(viewModel);
         }
 
-        await userService.CreateUserAsync(viewModel);
+        try
+        {
+            await userService.CreateUserAsync(viewModel);
+        }
+        catch (UserExists ex) {
+            ModelState.AddModelError(nameof(viewModel.Email), ex.Message);
+            return View(viewModel);
+        }
 
         return RedirectToAction("Login");
     }

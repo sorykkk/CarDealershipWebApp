@@ -21,8 +21,8 @@ namespace CarDealersWebApp.Data.Repositories
             cnn.Open();
             var userId = (await cnn.QueryAsync<int>(
                 $@"INSERT INTO {_tableName}
-                ( Name, Phone, Password, Email, Address, Country ) VALUES
-                (@Name, @Phone, @Password, @Email, @Address, @Country);
+                ( Name, UserType, Phone, Password, Email, Address, Country ) VALUES
+                (@Name, @Type, @Phone, @Password, @Email, @Address, @Country);
                 select last_insert_rowid()", user)).First();
             
             return userId;
@@ -33,7 +33,7 @@ namespace CarDealersWebApp.Data.Repositories
             using var cnn = DbConnection();
             cnn.Open();
 
-            User? dbUser = (await cnn.QueryAsync<User>(
+            User? dbUser = ( await cnn.QueryAsync<User>(
                 $@"SELECT * 
                     FROM {_tableName} 
                         WHERE Email = @email", new {email}
@@ -60,6 +60,7 @@ namespace CarDealersWebApp.Data.Repositories
                 $@"create table {_tableName}
                 (
                     ID         INTEGER PRIMARY KEY AUTOINCREMENT,
+                    UserType   INTEGER not null,
                     Name       varchar(100) not null,
                     Phone      varchar(20),
                     Password   varchar(255) not null,

@@ -25,7 +25,7 @@ public class RegistrationViewModel
     public string ConfirmPassword { get; set; } = string.Empty;
 
     [Required(ErrorMessage ="Email is required")]
-    [EmailExists]
+    //[EmailExists]
     [EmailAddress]
     public string Email { get; set; } = string.Empty;
 
