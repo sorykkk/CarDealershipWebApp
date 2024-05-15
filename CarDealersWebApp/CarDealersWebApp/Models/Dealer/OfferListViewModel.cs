@@ -2,8 +2,9 @@
 
 namespace CarDealersWebApp.Models.Dealer;
 
-[Authorize(Policy = "DealerOnly")]
+//[Authorize(Policy = "DealerOnly")]
 public class OfferListViewModel
 {
+    public List<Car> cars;
 
 }
