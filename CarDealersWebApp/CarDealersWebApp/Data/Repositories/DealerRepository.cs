@@ -1,10 +1,6 @@
 ﻿using CarDealersWebApp.Data.Entities;
 using CarDealersWebApp.Data.Interfaces;
 using Dapper;
-using Microsoft.Identity.Client;
-using Microsoft.IdentityModel.Tokens;
-using System.Data.Common;
-using System.Data.Entity;
 
 namespace CarDealersWebApp.Data.Repositories
 {

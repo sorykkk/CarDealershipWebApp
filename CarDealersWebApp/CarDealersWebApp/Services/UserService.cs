@@ -3,14 +3,20 @@ using CarDealersWebApp.Data.Interfaces;
 using CarDealersWebApp.Data.Repositories;
 using CarDealersWebApp.Exceptions;
 using CarDealersWebApp.Models.Auth;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication;
 
 namespace CarDealersWebApp.Services;
 
 public class UserService : IUserService
 {
     private readonly IUserRepository userRepository;
-    public UserService(IUserRepository userRepository) =>
+
+    public UserService(IUserRepository userRepository)
+    {
         this.userRepository = userRepository;
+    }
 
     public async Task CreateUserAsync(RegistrationViewModel registerViewModel)
     {
@@ -63,7 +69,24 @@ public class UserService : IUserService
         {
             throw new LoginException(errorMessage);
         }
-        else return existingUser;
+
+
+        var claims = new List<Claim>();
+        if(existingUser.Type == UserType.Dealer)
+        {
+            claims.Add(new Claim(ClaimTypes.Role, "Dealer"));
+        }
+        else if(existingUser.Type == UserType.Customer)
+        {
+            claims.Add(new Claim(ClaimTypes.Role, "Customer"));
+        }
+
+        /*var identity = new ClaimsIdentity(claims, "login");
+        var principal = new ClaimsPrincipal(identity);
+
+        await httpContextAccessor.HttpContext.SignInAsync(principal);*/
+
+        return existingUser;
         //claim
         //daca e dealer (UserType (Type))
         //daca e user claim pt user
@@ -74,13 +97,4 @@ public class UserService : IUserService
         //asta in loc de HTTP.Session
         
     }
-
-    /*public async Task LogoutUserAsync(string email)
-    {
-        User? user = await userRepository.GetUserByEmail(email);
-        if (user != null)
-        {
-            user.
-        }
-    }*/
 }

@@ -4,6 +4,9 @@ using CarDealersWebApp.Data.Interfaces;
 using CarDealersWebApp.Data.Repositories;
 using CarDealersWebApp.Models.Validation;
 using CarDealersWebApp.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +20,15 @@ builder.Services.AddControllers();
 //
 builder.Services.AddSession();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+//
 
+//
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("DealerOnly", policy => policy.RequireRole("Dealer"));
+    options.AddPolicy("CustomerOnly", policy => policy.RequireRole("Customer"));
+});
+//
 
 var app = builder.Build();
 
@@ -35,6 +46,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 //
 app.UseSession();

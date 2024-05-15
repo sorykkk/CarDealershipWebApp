@@ -28,13 +28,14 @@ namespace CarDealersWebApp.Data.Repositories
             return userId;
         }
 
+        //aici returneaza CUSTOMER??
         public async Task <User?> GetUserByEmail(string email)
         {
             using var cnn = DbConnection();
             cnn.Open();
 
             User? dbUser = ( await cnn.QueryAsync<User>(
-                $@"SELECT * 
+                $@"SELECT *, UserType AS Type
                     FROM {_tableName} 
                         WHERE Email = @email", new {email}
                 )).FirstOrDefault();

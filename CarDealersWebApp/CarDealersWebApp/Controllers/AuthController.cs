@@ -1,6 +1,5 @@
 ﻿using CarDealersWebApp.Models.Auth;
 using Microsoft.AspNetCore.Mvc;
-using CarDealersWebApp.Data.Repositories;
 using CarDealersWebApp.Services;
 using CarDealersWebApp.Data.Entities;
 using CarDealersWebApp.Exceptions;
@@ -68,12 +67,16 @@ public class AuthController : Controller
             return View(viewModel);
         }
 
-        if(loggedUser != null)
+        if (loggedUser != null)
         {
-            /*viewModel.Name = loggedUser.Name;
-            viewModel.IsLogged = true;*/
             HttpContext.Session.SetString("Email", loggedUser.Email);
             HttpContext.Session.SetString("Name", loggedUser.Name);
+
+            string Type = "Customer";
+            if (loggedUser.Type == UserType.Dealer)
+                Type = "Dealer";
+
+            HttpContext.Session.SetString("Type", Type);
         }
 
         return RedirectToAction("Index", "Home");
