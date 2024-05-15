@@ -2,7 +2,6 @@
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
 @{
-
     var userName = HttpContextAccessor.HttpContext?.Session.GetString("Name") ?? string.Empty;
 }
 
@@ -50,6 +49,10 @@
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="">Welcome @userName</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Logout">Log Out</a>
                             </li>
                         }
 

@@ -17,7 +17,7 @@ public class RegistrationViewModel
 
     [Required(ErrorMessage ="Password is required")]
     //[RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8}$",ErrorMessage = "Password must meet requirements")]
-    [StringLength(20, MinimumLength = 5, ErrorMessage ="Password should be at least 10 characters.")]
+    [StringLength(20, MinimumLength = 5, ErrorMessage ="Password should be at least 5 characters.")]
     public string Password { get; set; } = string.Empty;
 
     [Required(ErrorMessage ="Password confirmation is required")]

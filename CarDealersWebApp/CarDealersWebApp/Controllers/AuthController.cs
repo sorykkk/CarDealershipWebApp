@@ -4,6 +4,7 @@ using CarDealersWebApp.Data.Repositories;
 using CarDealersWebApp.Services;
 using CarDealersWebApp.Data.Entities;
 using CarDealersWebApp.Exceptions;
+using CarDealersWebApp.Models;
 
 namespace CarDealersWebApp.Controllers;
 
@@ -56,18 +57,39 @@ public class AuthController : Controller
         {
             return View(viewModel);
         }
+        User? loggedUser = null;
+        try
+        {
+            loggedUser = await userService.LoginUserAsync(viewModel.Email, viewModel.Password);
+        }
+        catch(LoginException ex)
+        {
+            ModelState.AddModelError(nameof(viewModel.Password), ex.Message);
+            return View(viewModel);
+        }
 
-        User loggedUser = await userService.GetUserAsync(viewModel.Email);
-        if (loggedUser == null)
+        if(loggedUser != null)
+        {
+            /*viewModel.Name = loggedUser.Name;
+            viewModel.IsLogged = true;*/
+            HttpContext.Session.SetString("Email", loggedUser.Email);
+            HttpContext.Session.SetString("Name", loggedUser.Name);
+        }
+
+        return RedirectToAction("Index", "Home");
+    }
+
+    [HttpGet]
+    public async Task <IActionResult> Logout(HomeViewModel viewModel)
+    {
+        if (!ModelState.IsValid)
         {
             return View(viewModel);
         }
 
-        /*viewModel.Name = loggedUser.Name;
-        viewModel.IsLogged = true;*/
-        HttpContext.Session.SetString("Email", loggedUser.Email);
-        HttpContext.Session.SetString("Name", loggedUser.Name);
+        HttpContext.Session.SetString("Email", "");
+        HttpContext.Session.SetString("Name", "");
 
-        return RedirectToAction("Index", "Home");
-    }
+        return RedirectToAction("Index", "Home");  
+    }   
 }

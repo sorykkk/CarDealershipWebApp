@@ -37,7 +37,7 @@ public class UserService : IUserService
         await userRepository.SaveUser(user);
     }
 
-    public Task<User> GetUserAsync(int userId)
+    public Task<User?> GetUserAsync(int userId)
     {
         throw new NotImplementedException();
     }
@@ -49,7 +49,7 @@ public class UserService : IUserService
         return user;
     }
 
-    public async Task LoginUserAsync(string email, string password)//Claim in this function
+    public async Task<User> LoginUserAsync(string email, string password)//Claim in this function
     {
         User? existingUser = await userRepository.GetUserByEmail(email);
         string errorMessage = "Incorrect email or password";
@@ -63,6 +63,7 @@ public class UserService : IUserService
         {
             throw new LoginException(errorMessage);
         }
+        else return existingUser;
         //claim
         //daca e dealer (UserType (Type))
         //daca e user claim pt user
@@ -73,4 +74,13 @@ public class UserService : IUserService
         //asta in loc de HTTP.Session
         
     }
+
+    /*public async Task LogoutUserAsync(string email)
+    {
+        User? user = await userRepository.GetUserByEmail(email);
+        if (user != null)
+        {
+            user.
+        }
+    }*/
 }
