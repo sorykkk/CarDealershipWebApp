@@ -5,10 +5,11 @@ using Google.Apis.Drive.v3;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using static Google.Apis.Drive.v3.DriveService;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace CarDealersWebApp.Services;
 
-public class ImageDriveService
+public class ImageDriveService : IImageDriveService
 {
     private static DriveService GetService()
     {
@@ -53,7 +54,19 @@ public class ImageDriveService
         return file.Id;
     }
 
-    public string UploadFile(Stream file, string fileName, string fileMime, string folder, string fileDescription)
+    private static string GetMimeType(string fileName)
+    {
+        var provider = new FileExtensionContentTypeProvider();
+        string contentType;
+        if(!provider.TryGetContentType(fileName, out contentType))
+        {
+            contentType = "aplication/octet-stream"; //default MIME
+        }
+
+        return contentType;
+    }
+
+    public string UploadFile(Stream file, string fileName, string folder, string fileDescription)
     {
         DriveService service = GetService();
 
@@ -61,9 +74,10 @@ public class ImageDriveService
         var driveFile = new Google.Apis.Drive.v3.Data.File();
         driveFile.Name = fileName;
         driveFile.Description = fileDescription;
-        driveFile.MimeType = fileMime;
         driveFile.Parents = new string[] { folder };
 
+        string fileMime = GetMimeType(fileName);
+        driveFile.MimeType = fileMime;
 
         var request = service.Files.Create(driveFile, file, fileMime);
             request.Fields = "id";

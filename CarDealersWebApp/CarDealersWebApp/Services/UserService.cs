@@ -4,8 +4,6 @@ using CarDealersWebApp.Data.Repositories;
 using CarDealersWebApp.Exceptions;
 using CarDealersWebApp.Models.Auth;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authentication;
 
 namespace CarDealersWebApp.Services;
 

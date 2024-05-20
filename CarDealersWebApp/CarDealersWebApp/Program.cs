@@ -16,6 +16,7 @@ builder.Services.AddControllersWithViews();
 //builder.Services.AddScoped<IDealerRepository, DealerRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IImageDriveService, ImageDriveService>();
 builder.Services.AddControllers();
 //
 builder.Services.AddSession();

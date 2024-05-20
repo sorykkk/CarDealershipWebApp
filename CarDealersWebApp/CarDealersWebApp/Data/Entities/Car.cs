@@ -15,6 +15,7 @@ public enum CarFuelType
 public class Car
 {
     public int Id { get; set; }
+    public int DealerId { get; set; }
     public string BrandName { get; set; }
     public string Model { get; set; }
     public int HP { get; set; }

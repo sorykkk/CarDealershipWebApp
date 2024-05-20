@@ -7,7 +7,8 @@ namespace CarDealersWebApp.Data.Repositories
 {
     public class UserRepository : SqLiteBaseRepository, IUserRepository
     {
-        private static string _tableName = "UserProfile";
+        public static string UserTableName { get; set; } = "UserProfile";
+        public static string UserTableId { get; set; } = "ID";
 
         public UserRepository()
         {
@@ -20,7 +21,7 @@ namespace CarDealersWebApp.Data.Repositories
             using var cnn = DbConnection();
             cnn.Open();
             var userId = (await cnn.QueryAsync<int>(
-                $@"INSERT INTO {_tableName}
+                $@"INSERT INTO {UserTableName}
                 ( Name, UserType, Phone, Password, Email, Address, Country ) VALUES
                 (@Name, @Type, @Phone, @Password, @Email, @Address, @Country);
                 select last_insert_rowid()", user)).First();
@@ -28,7 +29,6 @@ namespace CarDealersWebApp.Data.Repositories
             return userId;
         }
 
-        //aici returneaza CUSTOMER??
         public async Task <User?> GetUserByEmail(string email)
         {
             using var cnn = DbConnection();
@@ -36,7 +36,7 @@ namespace CarDealersWebApp.Data.Repositories
 
             User? dbUser = ( await cnn.QueryAsync<User>(
                 $@"SELECT *, UserType AS Type
-                    FROM {_tableName} 
+                    FROM {UserTableName} 
                         WHERE Email = @email", new {email}
                 )).FirstOrDefault();
 
@@ -48,7 +48,7 @@ namespace CarDealersWebApp.Data.Repositories
             using var cnn = DbConnection() ;
                 cnn.Open();
                 User? deleted = (await cnn.QueryAsync<User>(
-                    $@"DELETE FROM {_tableName} WHERE ID = @Id", new { Id })).FirstOrDefault();
+                    $@"DELETE FROM {UserTableName} WHERE ID = @Id", new { Id })).FirstOrDefault();
 
                 return deleted;
         }
@@ -58,7 +58,7 @@ namespace CarDealersWebApp.Data.Repositories
             using var cnn = DbConnection();
             cnn.Open();
             cnn.Execute(
-                $@"create table {_tableName}
+                $@"create table {UserTableName}
                 (
                     ID         INTEGER PRIMARY KEY AUTOINCREMENT,
                     UserType   INTEGER not null,
@@ -78,7 +78,7 @@ namespace CarDealersWebApp.Data.Repositories
             cnn.Open();
             User? result = (await cnn.QueryAsync<User>(
                 $@"SELECT *
-                    FROM {_tableName}
+                    FROM {UserTableName}
                         WHERE id = @id", new { id })).FirstOrDefault();
 
             return result;

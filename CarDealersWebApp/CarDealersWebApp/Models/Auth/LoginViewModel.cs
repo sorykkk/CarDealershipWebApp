@@ -12,6 +12,5 @@ public class LoginViewModel
     [Required(ErrorMessage = "Password is required")]
     public string Password { get; set; } = string.Empty;
 
-    //aici va trebui ceva cu claim
     public bool IsLogged { get; set; } = false;
 }
