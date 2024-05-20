@@ -1,10 +1,14 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿
+using CarDealersWebApp.Data.Entities;
 
 namespace CarDealersWebApp.Models.Dealer;
 
-//[Authorize(Policy = "DealerOnly")]
 public class OfferListViewModel
 {
-    public List<Car> cars;
+    //public List<Car> cars;
+
+    public Car? NewCar { get; set; }
+
+    public string CarImage {  get; set; }
 
 }

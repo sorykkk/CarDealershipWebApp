@@ -7,7 +7,7 @@
 <hr />
 <br />
 
-<form method="post">
+@* <form method="post">
     <div class="mb-3 row">
         <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
         <div class="col-sm-8 col-md-4">
@@ -20,6 +20,26 @@
         <div class="col-sm-8 col-md-4">
             <input type="password" class="form-control" id="inputPassword" asp-for="Password">
             <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary mb-3 mt-3">Log In</button>
+</form> *@
+
+<form method="post">
+    <div class="mb-3 row">
+        <div class="form-floating col-md-4">
+            <input type="email" class="form-control" id="staticEmail" placeholder="email@example.com" asp-for="Email">
+            <span asp-validation-for="Email" class="text-danger"></span>
+            <label for="staticEmail" class="col-sm-2 col-form-label px-4">Email</label>
+        </div>
+    </div>
+
+    <div class="mb-3 row">
+        <div class="form-floating col-md-4">
+            <input type="password" class="form-control" id="inputPassword" asp-for="Password" placeholder="Password">
+            <span asp-validation-for="Password" class="text-danger"></span>
+            <label for="inputPassword" class="col-sm-2 col-form-label px-4">Password</label>
         </div>
     </div>
 

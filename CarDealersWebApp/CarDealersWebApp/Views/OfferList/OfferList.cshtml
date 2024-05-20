@@ -1,13 +1,135 @@
-﻿<h2>Add new item:</h2>
+﻿@model CarDealersWebApp.Models.Dealer.OfferListViewModel
+@{
+    ViewData["Title"] = "OfferList";
+}
+
+<h2>Add new item:</h2>
 <hr />
 <br />
 
+<form method="post">
+    <div class="mb-3">
+
+        <div class="row mb-3">
+            <div class="col-md-8">
+                <div class="input-group">
+                    <span class="input-group-text">Brand & Model name: </span>
+                    <input type="text" aria-label="BrandName" placeholder= "Toyota"class="form-control"/>
+                    <input type="text" aria-label="ModelName" placeholder="Camry V6 GX" class="form-control"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <div class="input-group">
+                <div class="col-md-1 col-sm-3">
+                    <span class="input-group-text">Year: </span>
+                </div>
+                <div class="col-md-4 col-sm-8">
+                    <input type="number" min="1980" max="2024" placeholder="2015" class="form-control" />
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <div class="input-group">
+                <div class="col-md-1 col-sm-3">
+                    <span class="input-group-text">Mileage: </span>
+                </div>
+                <div class="col-md-4 col-sm-8">
+                    <input type="number" min="0" placeholder="150000" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
+                </div>
+                <span class="input-group-text">km</span>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <div class="input-group">
+                <div class="col-md-2 col-sm-3">
+                    <span class="input-group-text">Horse Power: </span>
+                </div>
+                <div class="col-md-3 col-sm-8">
+                    <input type="number" class="form-control" placeholder="150" />
+                </div>
+                <span class="input-group-text">HP</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="input-group mb-3">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Fuel Type:</button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Petrol</a></li>
+                        <li><a class="dropdown-item" href="#">Diesel</a></li>
+                        <li><a class="dropdown-item" href="#">Electric</a></li>
+                        <li><a class="dropdown-item" href="#">Hybrid</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Hydrogen</a></li>
+                        <li><a class="dropdown-item" href="#">Ethanol</a></li>
+                        <li><a class="dropdown-item" href="#">Compressed natural gas</a></li>
+                        <li><a class="dropdown-item" href="#">Liquefied petroleum gas</a></li>
+                        <li><a class="dropdown-item" href="#">Biodiesel</a></li>
+                    </ul>
+                    <div class="col-md-8">
+                        <input id="fuelTypeInput" class="form-control" aria-label="Text input with dropdown button" disabled>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <div class="input-group">
+                <div class="col-md-1 col-sm-3">
+                    <span class="input-group-text">Price: </span>
+                </div>
+                <div class="col-md-4 col-sm-8">
+                    <input type="number" min="0" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
+                </div>
+                <span class="input-group-text">$</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="input-group mb-3">
+                    <input type="file" class="form-control" id="inputGroupFile">
+                    <label class="input-group-text" for="inputGroupFile">Upload</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <div class="mb-3 col-md-6 col-sm-12">
+                <label for="exampleFormControlTextarea" class="form-label">Description</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" maxlength="255"></textarea>
+            </div>
+        </div>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary mb-3 mt-1">Create</button>
+</form>
+
+<script>
+    document.querySelectorAll('.dropdown-item').forEach(item => {
+        item.addEventListener('click', event => {
+            // Get the text of the clicked item
+            let selectedText = event.target.textContent;
+            // Set the text in the disabled input field
+            document.getElementById('fuelTypeInput').value = selectedText;
+        });
+    });
+</script>
+
+
+<br />
 <h2>Existing items:</h2>
 <hr />
 <br />
 
 <div class="card" style="width: 16rem;">
-    <img src="..." class="card-img-top" alt="...">
+    <img src="https://drive.google.com/uc?export=view&id=1XoucIqALyW2ct8rDdu7XddQsGJQvC70a" class="card-img-top" alt="...">
     <div class="card-body">
         <h5 class="card-title">Card title</h5>
         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -17,9 +139,9 @@
         <li class="list-group-item">A second item</li>
         <li class="list-group-item">A third item</li>
     </ul>
-    <div class="card-footer row justify-content-center py-0">
-        <a href="#" class="btn btn-secondary col-md-6">Edit</a>
-        <a href="#" class="btn btn-danger col-md-6">Delete</a>
+    <div class="card-footer d-flex justify-content-between p-0">
+        <a href="#" class="btn btn-secondary flex-grow-1 text-center">Edit</a>
+        <a href="#" class="btn btn-danger flex-grow-1 text-center">Delete</a>
     </div>
 </div>
 
