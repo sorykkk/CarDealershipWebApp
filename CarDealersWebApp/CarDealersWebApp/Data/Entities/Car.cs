@@ -26,5 +26,6 @@ public class Car
     public string? Description { get; set; }
 
     //if the image is not provided, a default image will be given
-    public string? ImagePath { get; set; }
+    //public IFormFile ImageFile { get; set; }
+    public string ImagePath {  get; set; }
 }

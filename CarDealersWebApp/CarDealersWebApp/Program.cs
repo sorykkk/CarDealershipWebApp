@@ -5,7 +5,9 @@ using CarDealersWebApp.Data.Repositories;
 using CarDealersWebApp.Models.Validation;
 using CarDealersWebApp.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
+using System.IO;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +18,8 @@ builder.Services.AddControllersWithViews();
 //builder.Services.AddScoped<IDealerRepository, DealerRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICarService, CarService>();
+builder.Services.AddScoped<ICarRepository, CarRepository>();
 builder.Services.AddScoped<IImageDriveService, ImageDriveService>();
 builder.Services.AddControllers();
 //
@@ -32,6 +36,7 @@ builder.Services.AddAuthorization(options =>
 //
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -51,6 +56,7 @@ app.UseAuthentication();
 
 //
 app.UseSession();
+//
 
 app.MapControllerRoute(
     name: "default",

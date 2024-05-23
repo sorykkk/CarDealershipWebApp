@@ -1,54 +1,86 @@
-﻿using CarDealersWebApp.Models.Auth;
-using CarDealersWebApp.Models.Dealer;
-using Microsoft.AspNetCore.Authorization;
+﻿
 using Microsoft.AspNetCore.Mvc;
 using CarDealersWebApp.Services;
+using CarDealersWebApp.Models.Dealer;
+using CarDealersWebApp.Data.Entities;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CarDealersWebApp.Controllers;
 
 //[Authorize(Policy = "DealerOnly")]
 public class OfferListController : Controller
 {
-    public string ImageFolderDb = "ImageDataBase";
-    private IImageDriveService imageDriveService;
+    private readonly ICarService carService;
+    private readonly IWebHostEnvironment _webHostEnvironment;
 
-    public OfferListController(IImageDriveService imageDriveService)
+    public OfferListController(IWebHostEnvironment webHostEnvironment,ICarService carService)
     {
-        this.imageDriveService = imageDriveService;
+        this.carService = carService;
+        _webHostEnvironment = webHostEnvironment;
     }
 
     [HttpGet]
-    public async Task<IActionResult> OfferList(OfferListViewModel viewModel)
+    public async Task<IActionResult> OfferList()
     {
+        var viewModel = new CarListViewModel();
+        var userEmail = HttpContext.Session.GetString("Email") ?? string.Empty;
+        await carService.GetCarsAsync(viewModel.ExistingCars, userEmail);
+
         return View(viewModel);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Upload(OfferListViewModel viewModel)
+    public async Task<IActionResult> OfferList(CarListViewModel viewModel)
     {
-        if(!ModelState.IsValid)
+        var userEmail = HttpContext.Session.GetString("Email") ?? string.Empty;
+        if (!ModelState.IsValid)
         {
+            // Log the validation errors
+            /*var errors = ModelState.Values.SelectMany(v => v.Errors);
+            foreach (var error in errors)
+            {
+                // Log the error message
+                Console.WriteLine(error.ErrorMessage);
+            }*/
+
+            await carService.GetCarsAsync(viewModel.ExistingCars, userEmail);
             return View(viewModel);
         }
 
-        if(viewModel.ImageFile != null && viewModel.ImageFile.Length > 0)
-        {
-            var folderId = ImageFolderDb;
-            var fileDescription = "Upload via CarDealers for ImageDatabase";
+        string wwwRootPath = _webHostEnvironment.WebRootPath;
 
-            using (var stream = viewModel.ImageFile.OpenReadStream())
+        if(viewModel.NewCarViewModel.file != null)
+        {
+            string fileName = Guid.NewGuid().ToString() + Path.GetExtension(viewModel.NewCarViewModel.file.FileName);
+            string productPath = Path.Combine(wwwRootPath, @"Images\Car");
+
+            using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
             {
-                var fileId = imageDriveService.UploadFile(stream, viewModel.ImageFile.FileName, folderId, fileDescription);
-                ViewBag.Message = "File uploaded successfully. File ID: " + fileId;
+                viewModel.NewCarViewModel.file.CopyTo(fileStream);
             }
+
+            viewModel.NewCarViewModel.ImagePath = @"\Images\Car\" + fileName;
         }
         else
         {
-            ViewBag.Message = "No file selected for upload.";
+            viewModel.NewCarViewModel.ImagePath = @"\Images\Car\car_unknown.jpg";
         }
+        await carService.CreateCarAsync(viewModel.NewCarViewModel, userEmail);
+        TempData["success"] = "Car added successfully to your offer list";
 
-        return View(viewModel);
-
+        //ModelState.Clear();
+        viewModel.NewCarViewModel = new NewCarViewModel();
+        await carService.GetCarsAsync(viewModel.ExistingCars, userEmail);
+        return RedirectToAction("OfferList");
     }
+
+    /*[HttpPost]
+    public async Task<IActionResult> DisplayCars(CarListViewModel viewModel)
+    {
+        var userEmail = HttpContext.Session.GetString("Email") ?? string.Empty;
+        //add here the all new cars
+        await carService.GetCarsAsync(viewModel, userEmail);
+        return Redirect("OfferList");
+    }*/
 
 }

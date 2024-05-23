@@ -2,14 +2,15 @@
 using CarDealersWebApp.Data.Entities;
 using CarDealersWebApp.Data.Interfaces;
 using Dapper;
+using System.Data.SQLite;
+using System.Security.Cryptography.Xml;
 
 namespace CarDealersWebApp.Data.Repositories
 {
     public class UserRepository : SqLiteBaseRepository, IUserRepository
     {
-        public static string UserTableName { get; set; } = "UserProfile";
-        public static string UserTableId { get; set; } = "ID";
-
+        private static string UserTableName = IUserRepository.UserTableName;
+        private static string UserTableId = IUserRepository.UserTableId;
         public UserRepository()
         {
             if (!File.Exists(DbFile))
@@ -20,12 +21,24 @@ namespace CarDealersWebApp.Data.Repositories
         {
             using var cnn = DbConnection();
             cnn.Open();
-            var userId = (await cnn.QueryAsync<int>(
-                $@"INSERT INTO {UserTableName}
-                ( Name, UserType, Phone, Password, Email, Address, Country ) VALUES
-                (@Name, @Type, @Phone, @Password, @Email, @Address, @Country);
-                select last_insert_rowid()", user)).First();
-            
+            int userId;
+            try
+            {
+                userId = (await cnn.QueryAsync<int>(
+                    $@"INSERT INTO {UserTableName}
+                    ( Name, UserType, Phone, Password, Email, Address, Country ) VALUES
+                    (@Name, @Type, @Phone, @Password, @Email, @Address, @Country);
+                    select last_insert_rowid()", user)).First();
+            }
+            catch(SQLiteException ex)
+            {
+                CreateUserTable();
+                userId = (await cnn.QueryAsync<int>(
+                   $@"INSERT INTO {UserTableName}
+                    ( Name, UserType, Phone, Password, Email, Address, Country ) VALUES
+                    (@Name, @Type, @Phone, @Password, @Email, @Address, @Country);
+                    select last_insert_rowid()", user)).First();
+            }
             return userId;
         }
 
@@ -60,15 +73,15 @@ namespace CarDealersWebApp.Data.Repositories
             cnn.Execute(
                 $@"create table {UserTableName}
                 (
-                    ID         INTEGER PRIMARY KEY AUTOINCREMENT,
-                    UserType   INTEGER not null,
-                    Name       varchar(100) not null,
-                    Phone      varchar(20),
-                    Password   varchar(255) not null,
-                    Email      varchar(100) not null,
-                    Address    varchar(100),
-                    Country    varchar(100)
-                )"
+                    {UserTableId} INTEGER PRIMARY KEY AUTOINCREMENT,
+                    UserType      INTEGER not null,
+                    Name          varchar(100) not null,
+                    Phone         varchar(20),
+                    Password      varchar(255) not null,
+                    Email         varchar(100) not null,
+                    Address       varchar(100),
+                    Country       varchar(100)
+                );"
                 );
         }
 

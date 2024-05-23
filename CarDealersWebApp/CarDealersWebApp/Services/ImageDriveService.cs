@@ -66,6 +66,41 @@ public class ImageDriveService : IImageDriveService
         return contentType;
     }
 
+    public string GetFolderId(string folderName)
+    {
+        // Initialize the Drive service
+        DriveService service = GetService();
+
+        // Define the query to search for the folder by name
+        string query = $"mimeType='application/vnd.google-apps.folder' and name='{folderName}' and trashed=false";
+
+        try
+        {
+            // Perform the query to search for the folder
+            var request = service.Files.List();
+            request.Q = query;
+            var response = request.Execute();
+
+            // Check if the folder was found
+            if (response.Files.Any())
+            {
+                // Return the ID of the first matching folder
+                return response.Files.First().Id;
+            }
+            else
+            {
+                // Folder not found
+                throw new Exception("Folder not found");
+            }
+        }
+        catch (Exception ex)
+        {
+            // Handle any errors
+            Console.WriteLine($"Error: {ex.Message}");
+            return null;
+        }
+    }
+
     public string UploadFile(Stream file, string fileName, string folder, string fileDescription)
     {
         DriveService service = GetService();
