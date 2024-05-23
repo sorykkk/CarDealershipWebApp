@@ -53,6 +53,7 @@ public class CarService : ICarService
         foreach(var car in cars)
         {
             ExistingCarViewModel viewModel = new ExistingCarViewModel();
+            viewModel.CarId = car.Id;
             viewModel.BrandName = car.BrandName;
             viewModel.Model = car.Model;
             viewModel.Year = car.Year;
@@ -71,6 +72,14 @@ public class CarService : ICarService
 
             viewModels.Add(viewModel);
         }
+    }
+
+    public async Task<bool> DeleteCarByIdAsync(int carId)
+    {
+        if(carId < 1)
+            return false;
+        bool success = await carRepository.DeleteCar(carId);
+        return success;
     }
 
 }

@@ -43,6 +43,7 @@ public class NewCarViewModel
 //view pentru card-ul
 public class ExistingCarViewModel
 {
+    public int CarId { get; set; }
     public string ImagePath { get; set; }
     public string BrandName { get; set; }
 

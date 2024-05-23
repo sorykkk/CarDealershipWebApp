@@ -72,4 +72,16 @@ public class OfferListController : Controller
         await carService.GetCarsAsync(viewModel.ExistingCars, userEmail);
         return RedirectToAction("OfferList");
     }
+
+    //[HttpDelete]
+    public async Task<IActionResult> DeleteCar(int id)
+    {
+        bool success = await carService.DeleteCarByIdAsync(id);
+        if (success)
+            TempData["success"] = "Car deleted successfuly from your offer list";
+        else TempData["fail"] = "Car couldn't be deleted";
+
+        return RedirectToAction("OfferList");
+
+    }
 }

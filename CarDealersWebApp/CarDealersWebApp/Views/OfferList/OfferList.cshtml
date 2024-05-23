@@ -12,6 +12,13 @@
     </div>
 }
 
+@if (TempData["fail"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["fail"]
+    </div>
+}
+
 <h2>Add new item:</h2>
 <hr />
 <br />
@@ -195,8 +202,8 @@
                             <li class="list-group-item">Price: @car.Price</li>
                         </ul>
                         <div class="card-footer d-flex justify-content-between p-0">
-                            <a href="#" class="btn btn-secondary flex-grow-1 text-center" style="font-size: 0.9rem;">Edit</a>
-                            <a href="#" class="btn btn-danger flex-grow-1 text-center" style="font-size: 0.9rem;">Delete</a>
+                            <a class="btn btn-secondary flex-grow-1 text-center" style="font-size: 0.9rem;">Edit</a>
+                            <a asp-action="DeleteCar" asp-route-id="@car.CarId" class="btn btn-danger flex-grow-1 text-center" style="font-size: 0.9rem;">Delete</a>
                         </div>
                     </div>
                 </div>

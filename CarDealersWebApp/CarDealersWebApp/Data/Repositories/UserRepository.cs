@@ -9,8 +9,6 @@ namespace CarDealersWebApp.Data.Repositories
 {
     public class UserRepository : SqLiteBaseRepository, IUserRepository
     {
-        private static string UserTableName = IUserRepository.UserTableName;
-        private static string UserTableId = IUserRepository.UserTableId;
         public UserRepository()
         {
             if (!File.Exists(DbFile))
@@ -21,24 +19,12 @@ namespace CarDealersWebApp.Data.Repositories
         {
             using var cnn = DbConnection();
             cnn.Open();
-            int userId;
-            try
-            {
-                userId = (await cnn.QueryAsync<int>(
-                    $@"INSERT INTO {UserTableName}
-                    ( Name, UserType, Phone, Password, Email, Address, Country ) VALUES
-                    (@Name, @Type, @Phone, @Password, @Email, @Address, @Country);
-                    select last_insert_rowid()", user)).First();
-            }
-            catch(SQLiteException ex)
-            {
-                CreateUserTable();
-                userId = (await cnn.QueryAsync<int>(
-                   $@"INSERT INTO {UserTableName}
-                    ( Name, UserType, Phone, Password, Email, Address, Country ) VALUES
-                    (@Name, @Type, @Phone, @Password, @Email, @Address, @Country);
-                    select last_insert_rowid()", user)).First();
-            }
+            CreateUserTable();
+            var userId = (await cnn.QueryAsync<int>(
+                $@"INSERT INTO Users
+                ( Name, UserType, Phone, Password, Email, Address, Country ) VALUES
+                (@Name, @Type, @Phone, @Password, @Email, @Address, @Country);
+                select last_insert_rowid()", user)).First();
             return userId;
         }
 
@@ -49,7 +35,7 @@ namespace CarDealersWebApp.Data.Repositories
 
             User? dbUser = ( await cnn.QueryAsync<User>(
                 $@"SELECT *, UserType AS Type
-                    FROM {UserTableName} 
+                    FROM Users
                         WHERE Email = @email", new {email}
                 )).FirstOrDefault();
 
@@ -61,7 +47,7 @@ namespace CarDealersWebApp.Data.Repositories
             using var cnn = DbConnection() ;
                 cnn.Open();
                 User? deleted = (await cnn.QueryAsync<User>(
-                    $@"DELETE FROM {UserTableName} WHERE ID = @Id", new { Id })).FirstOrDefault();
+                    $@"DELETE FROM Users WHERE ID = @Id", new { Id })).FirstOrDefault();
 
                 return deleted;
         }
@@ -70,10 +56,11 @@ namespace CarDealersWebApp.Data.Repositories
         {
             using var cnn = DbConnection();
             cnn.Open();
+
             cnn.Execute(
-                $@"create table {UserTableName}
+                $@"create table IF NOT EXISTS Users 
                 (
-                    {UserTableId} INTEGER PRIMARY KEY AUTOINCREMENT,
+                    ID        INTEGER PRIMARY KEY AUTOINCREMENT,
                     UserType      INTEGER not null,
                     Name          varchar(100) not null,
                     Phone         varchar(20),
@@ -81,7 +68,13 @@ namespace CarDealersWebApp.Data.Repositories
                     Email         varchar(100) not null,
                     Address       varchar(100),
                     Country       varchar(100)
-                );"
+                );
+
+                INSERT INTO Users (UserType, Name, Phone, Password, Email, Address, Country) 
+                VALUES
+                    (1, 'd', 'asdfasdf', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', 'd@gmail.com', 'asdfsadf', 'asdf'),
+                    (1, 'dd', '123455', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', 'dd@gmail.com', 'sdfasdf', 'asdfasdf');
+                "
                 );
         }
 
@@ -91,7 +84,7 @@ namespace CarDealersWebApp.Data.Repositories
             cnn.Open();
             User? result = (await cnn.QueryAsync<User>(
                 $@"SELECT *
-                    FROM {UserTableName}
+                    FROM Users
                         WHERE id = @id", new { id })).FirstOrDefault();
 
             return result;

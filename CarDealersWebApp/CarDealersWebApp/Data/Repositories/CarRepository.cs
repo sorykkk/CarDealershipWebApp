@@ -8,10 +8,6 @@ namespace CarDealersWebApp.Data.Repositories;
 
 public class CarRepository : SqLiteBaseRepository, ICarRepository
 {
-    private static string CarTableName = ICarRepository.CarTableName;
-    private static string referenceTable = IUserRepository.UserTableName;
-    private static string carId = ICarRepository.CarTableId;
-    private static string referenceId = IUserRepository.UserTableId;
     public CarRepository()
     {
         if (!File.Exists(DbFile))
@@ -22,24 +18,12 @@ public class CarRepository : SqLiteBaseRepository, ICarRepository
     {
         using var cnn = DbConnection();
         cnn.Open();
-        int carId;
-        try
-        {
-            carId = (await cnn.QueryAsync<int>(
-                $@"INSERT INTO {CarTableName}
-                ({referenceId}, BrandName, Model, HP, Year, FuelType, Mileage, Price, Description, ImagePath) VALUES
-                ({dealerId}, @BrandName, @Model, @HP, @Year, @FuelType, @Mileage, @Price, @Description, @ImagePath);
-                select last_insert_rowid()", car)).First();
-        }
-        catch(SQLiteException ex)
-        {
-            CreateCarTable();
-            carId = (await cnn.QueryAsync<int>(
-                $@"INSERT INTO {CarTableName}
-                ({referenceId}, BrandName, Model, HP, Year, FuelType, Mileage, Price, Description, ImagePath) VALUES
-                ({dealerId}, @BrandName, @Model, @HP, @Year, @FuelType, @Mileage, @Price, @Description, @ImagePath);
-                select last_insert_rowid()", car)).First();
-        }
+        CreateCarTable();
+        var carId = (await cnn.QueryAsync<int>(
+            $@"INSERT INTO Cars
+            (DealerID, BrandName, Model, HP, Year, FuelType, Mileage, Price, Description, ImagePath) VALUES
+            ({dealerId}, @BrandName, @Model, @HP, @Year, @FuelType, @Mileage, @Price, @Description, @ImagePath);
+            select last_insert_rowid()", car)).First();
 
         return carId;
     }
@@ -50,9 +34,9 @@ public class CarRepository : SqLiteBaseRepository, ICarRepository
         cnn.Open();
         IEnumerable<Car> cars;
         var query = $@"SELECT c.* 
-                        FROM {CarTableName} c 
-                        JOIN {referenceTable} r ON c.{referenceId} = r.{referenceId}
-                            WHERE r.Email = @UserEmail";
+                        FROM Cars c 
+                        JOIN Users u ON c.DealerID = u.ID
+                            WHERE u.Email = @UserEmail";
         try
         {
             cars = await cnn.QueryAsync<Car>(query, new {UserEmail = userEmail}) ;
@@ -66,12 +50,23 @@ public class CarRepository : SqLiteBaseRepository, ICarRepository
         return cars.ToList();
     }
 
+    public async Task<bool> DeleteCar(int carId)
+    {
+        using var cnn = DbConnection();
+        cnn.Open();
+        var query = $@"DELETE FROM Cars WHERE ID = @CarId";
+
+        var rowsAffected = await cnn.ExecuteAsync(query, new {CarId = carId});
+
+        return rowsAffected > 0;
+    }
+
     public async Task DeleteTable()
     {
         using var cnn = DbConnection();
         cnn.Open();
 
-        var query = $@"DROP TABLE {CarTableName} ";
+        var query = $@"DROP TABLE Cars ";
         var cars = await cnn.QueryAsync<Car>(query);
     }
 
@@ -80,10 +75,10 @@ public class CarRepository : SqLiteBaseRepository, ICarRepository
         using var cnn = DbConnection();
         cnn.Open();
         cnn.Execute(
-            $@"create table {CarTableName}
+            $@"create table IF NOT EXISTS Cars
             (
-                {carId}       INTEGER PRIMARY KEY AUTOINCREMENT,
-                {referenceId} INTEGER,
+                ID        INTEGER PRIMARY KEY AUTOINCREMENT,
+                DealerID    INTEGER,
 
                 BrandName     varchar(50) not null,
                 Model         varchar(50) not null,
@@ -91,11 +86,11 @@ public class CarRepository : SqLiteBaseRepository, ICarRepository
                 Year          INTEGER not null,
                 FuelType      INTEGER not null,
                 Mileage       INTEGER not null,
-                Price         REAL not null,
-                Description   varchar(255),
+                Price        REAL not null,
+                Description  varchar(255),
                 ImagePath     varchar(255) not null,
 
-                FOREIGN  KEY({referenceId}) references {referenceTable} ({referenceId})
+                FOREIGN  KEY(DealerID) references Users (ID)
             );"
         );
         
