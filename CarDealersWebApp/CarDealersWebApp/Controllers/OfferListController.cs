@@ -68,19 +68,8 @@ public class OfferListController : Controller
         await carService.CreateCarAsync(viewModel.NewCarViewModel, userEmail);
         TempData["success"] = "Car added successfully to your offer list";
 
-        //ModelState.Clear();
         viewModel.NewCarViewModel = new NewCarViewModel();
         await carService.GetCarsAsync(viewModel.ExistingCars, userEmail);
         return RedirectToAction("OfferList");
     }
-
-    /*[HttpPost]
-    public async Task<IActionResult> DisplayCars(CarListViewModel viewModel)
-    {
-        var userEmail = HttpContext.Session.GetString("Email") ?? string.Empty;
-        //add here the all new cars
-        await carService.GetCarsAsync(viewModel, userEmail);
-        return Redirect("OfferList");
-    }*/
-
 }

@@ -24,14 +24,18 @@
             <div class="col-md-8">
                 <div class="input-group">
                     <span class="input-group-text">Brand & Model name: </span>
-                    <input type="text" aria-label="BrandName" placeholder="Toyota" class="form-control" asp-for="NewCarViewModel.BrandName" />
-                    <input type="text" aria-label="ModelName" placeholder="Camry V6 GX" class="form-control" asp-for="NewCarViewModel.Model" />
+                    <div class="w-50 pe-2">
+                        <input type="text" aria-label="BrandName" placeholder="Toyota" class="form-control" asp-for="NewCarViewModel.BrandName" />
+                        <span asp-validation-for="NewCarViewModel.BrandName" class="text-danger"></span>
+                    </div>
+                    <div class="w-50 ps-2">
+                        <input type="text" aria-label="ModelName" placeholder="Camry V6 GX" class="form-control" asp-for="NewCarViewModel.Model" />
+                        <span asp-validation-for="NewCarViewModel.Model" class="text-danger"></span>
+                    </div>
                 </div>
-                <!--Trebuie sa pun logica de selectie care eroare va arata-->
-                <span asp-validation-for="NewCarViewModel.BrandName" class="text-danger"></span>
-                <span asp-validation-for="NewCarViewModel.Model" class="text-danger"></span>
             </div>
         </div>
+
 
 
         <div class="mb-3 row">
@@ -167,31 +171,34 @@
 <div>
     @if (Model.ExistingCars != null && Model.ExistingCars.Any())
     {
-        <div class="row">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
             @foreach (var car in Model.ExistingCars)
             {
-                <div class="card" style="width: 16rem;">
-                    <img src="@Url.Content(car.ImagePath)" class="card-img-top" alt="car_image">
-                    <div class="card-body">
-                        <h5 class="card-title">@car.BrandName</h5>
-                        <p class="card-text">@car.Model</p>
-                        @if(!string.IsNullOrEmpty(car.ShortDescription))
-                        {
-                            <p class="card-text">@car.ShortDescription</p>
-                        }
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Year: @car.Year</li>
-                        <li class="list-group-item">Mileage: @car.Mileage</li>
-                        <li class="list-group-item">Price: @car.Price</li>
-                    </ul>
-                    <div class="card-footer d-flex justify-content-between p-0">
-                        <a href="#" class="btn btn-secondary flex-grow-1 text-center">Edit</a>
-                        <a href="#" class="btn btn-danger flex-grow-1 text-center">Delete</a>
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="@Url.Content(car.ImagePath)" class="card-img-top" alt="car_image" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">@car.BrandName</h5>
+                            <p class="card-text">@car.Model</p>
+                            @if (!string.IsNullOrEmpty(car.ShortDescription))
+                            {
+                                <p class="card-text">@car.ShortDescription</p>
+                            }
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Year: @car.Year</li>
+                            <li class="list-group-item">Mileage: @car.Mileage</li>
+                            <li class="list-group-item">Price: @car.Price</li>
+                        </ul>
+                        <div class="card-footer d-flex justify-content-between p-0">
+                            <a href="#" class="btn btn-secondary flex-grow-1 text-center">Edit</a>
+                            <a href="#" class="btn btn-danger flex-grow-1 text-center">Delete</a>
+                        </div>
                     </div>
                 </div>
             }
         </div>
+
     }
     else
     {

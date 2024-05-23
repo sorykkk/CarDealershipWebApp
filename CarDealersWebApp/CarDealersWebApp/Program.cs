@@ -4,11 +4,6 @@ using CarDealersWebApp.Data.Interfaces;
 using CarDealersWebApp.Data.Repositories;
 using CarDealersWebApp.Models.Validation;
 using CarDealersWebApp.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.IdentityModel.Tokens;
-using System.IO;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
