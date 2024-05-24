@@ -2,9 +2,6 @@
 using CarDealersWebApp.Data.Entities;
 using CarDealersWebApp.Data.Interfaces;
 using CarDealersWebApp.Models.Dealer;
-using Google.Apis.Drive.v3.Data;
-using Microsoft.AspNetCore.Hosting;
-
 namespace CarDealersWebApp.Services;
 
 public class CarService : ICarService
