@@ -2,4 +2,10 @@
 
 public class RentRequestViewModel
 {
+
+}
+
+public class IncomingRequests
+{
+
 }

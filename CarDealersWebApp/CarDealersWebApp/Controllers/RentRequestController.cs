@@ -1,11 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CarDealersWebApp.Models.Dealer;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CarDealersWebApp.Controllers;
 
 public class RentRequestController : Controller
 {
-    public IActionResult Index()
+    [HttpGet]
+    public IActionResult RentRequest()
     {
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> RentRequest(RentRequestViewModel viewModel)
+    {
+        if(!ModelState.IsValid)
+        {
+            return View(viewModel);
+        }
+
         return View();
     }
 }

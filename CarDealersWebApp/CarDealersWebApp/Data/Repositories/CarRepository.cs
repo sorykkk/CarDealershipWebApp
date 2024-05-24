@@ -115,31 +115,29 @@ public class CarRepository : SqLiteBaseRepository, ICarRepository
         var cars = await cnn.QueryAsync<Car>(query);
     }
 
-    public static void CreateCarTable()
+    private static void CreateCarTable()
     {
         using var cnn = DbConnection();
         cnn.Open();
         cnn.Execute(
             $@"create table IF NOT EXISTS Cars
             (
-                ID        INTEGER PRIMARY KEY AUTOINCREMENT,
+                ID          INTEGER PRIMARY KEY AUTOINCREMENT,
                 DealerID    INTEGER,
 
-                BrandName     varchar(50) not null,
-                Model         varchar(50) not null,
-                HP            INTEGER not null,
-                Year          INTEGER not null,
-                FuelType      INTEGER not null,
-                Mileage       INTEGER not null,
-                Price        REAL not null,
-                Description  varchar(255),
-                ImagePath     varchar(255) not null,
+                BrandName   varchar(50) not null,
+                Model       varchar(50) not null,
+                HP          INTEGER not null,
+                Year        INTEGER not null,
+                FuelType    INTEGER not null,
+                Mileage     INTEGER not null,
+                Price       REAL not null,
+                Description varchar(255),
+                ImagePath   varchar(255) not null,
 
                 FOREIGN  KEY(DealerID) references Users (ID)
             );"
         );
-        
-
     }
 }
 

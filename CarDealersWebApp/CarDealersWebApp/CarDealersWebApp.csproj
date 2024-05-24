@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <Folder Include="Models\Validation\LogIn\" />
+    <Folder Include="wwwroot\Images\Shared\" />
   </ItemGroup>
 
 </Project>
