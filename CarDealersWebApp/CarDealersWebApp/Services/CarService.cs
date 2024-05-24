@@ -113,29 +113,25 @@ public class CarService : ICarService
         return true;
     }
 
-    public string UploadImage(IFormFile file)
+    public string UploadNewImage(IFormFile file)
     {
         string wwwRootPath = webHostEnvironment.WebRootPath;
-        string imagePath;
+        var newImagePath = @"\Images\Car\car_unknown.jpg";
 
-        if (file != null)
+        if (file is not null)
         {
             string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-            string productPath = Path.Combine(wwwRootPath, @"Images\Car");
+            string fullPath = Path.Combine(wwwRootPath, @"Images\Car");
 
-            using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
+            using (var fileStream = new FileStream(Path.Combine(fullPath, fileName), FileMode.Create))
             {
                 file.CopyTo(fileStream);
             }
 
-            imagePath = @"\Images\Car\" + fileName;
-        }
-        else
-        {
-            imagePath = @"\Images\Car\car_unknown.jpg";
+            newImagePath = Path.Combine(@"\Images\Car\" , fileName);
         }
 
-        return imagePath;
+        return newImagePath;
     }
 
 }

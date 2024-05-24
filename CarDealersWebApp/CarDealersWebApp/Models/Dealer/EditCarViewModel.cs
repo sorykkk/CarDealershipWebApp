@@ -1,8 +1,4 @@
-﻿using CarDealersWebApp.Services;
-
-namespace CarDealersWebApp.Models.Dealer;
-
-
+﻿namespace CarDealersWebApp.Models.Dealer;
 
 public class EditCarViewModel : NewCarViewModel
 {

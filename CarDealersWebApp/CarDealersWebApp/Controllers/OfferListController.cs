@@ -62,7 +62,9 @@ public class OfferListController : Controller
             viewModel.NewCarViewModel.ImagePath = @"\Images\Car\car_unknown.jpg";
         }*/
 
-        viewModel.NewCarViewModel.ImagePath = carService.UploadImage(viewModel.NewCarViewModel.file);
+        
+        viewModel.NewCarViewModel.ImagePath = carService.UploadNewImage(viewModel.NewCarViewModel.file);
+
         await carService.CreateCarAsync(viewModel.NewCarViewModel, userEmail);
         TempData["success"] = "Car added successfully to your offer list";
 

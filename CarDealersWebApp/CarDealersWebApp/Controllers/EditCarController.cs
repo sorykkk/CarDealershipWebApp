@@ -54,7 +54,11 @@ public class EditCarController : Controller
         {
             return View(viewModel);
         }
-        viewModel.ImagePath = carService.UploadImage(viewModel.file);
+
+        if(viewModel.file is not null)
+        {
+            viewModel.ImagePath = carService.UploadNewImage(viewModel.file);
+        }
 
         await carService.UpdateCarIdAsync(viewModel);
 
