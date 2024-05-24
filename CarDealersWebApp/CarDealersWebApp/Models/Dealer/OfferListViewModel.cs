@@ -1,10 +1,9 @@
-﻿using CarDealersWebApp.Data.Entities;
+﻿
+using CarDealersWebApp.Data.Entities;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Razor;
 
 namespace CarDealersWebApp.Models.Dealer;
 
-//view pentru crearea masinii
 public class NewCarViewModel
 {
     [Required(ErrorMessage = "Brand Name is required")]
@@ -30,7 +29,7 @@ public class NewCarViewModel
     public float Price { get; set; }
 
     [Required(ErrorMessage = "Fuel Type is required")]
-    public int FuelType { get; set; }
+    public CarFuelType FuelType { get; set; }
 
     [MaxLength(255, ErrorMessage = "Description can't exceed 255 characters")]
     public string? Description { get; set; }
@@ -39,8 +38,6 @@ public class NewCarViewModel
     public string? ImagePath { get; set; }
 }
 
-
-//view pentru card-ul
 public class ExistingCarViewModel
 {
     public int CarId { get; set; }
@@ -59,20 +56,8 @@ public class ExistingCarViewModel
 }
 
 
-//din offerlist
 public class CarListViewModel
 {
-    //
     public NewCarViewModel? NewCarViewModel { get; set; }
     public List<ExistingCarViewModel> ExistingCars { get; set; } = new List<ExistingCarViewModel>();
 }
-
-
-/*
-public class OfferListViewModel
-{
-    
-
-    public List<Car> Cars { get; set; } = new List<Car>();
-}
-*/

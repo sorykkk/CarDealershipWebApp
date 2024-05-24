@@ -8,6 +8,6 @@ public interface ICarRepository
     public Task<List<Car>> GetCarListOfUser(string userEmail);
     public Task DeleteTable();
     public Task<bool> DeleteCar(int carId);
-    /*Task<Car?> GetCar(int id);
-    Task<Car?> DeleteCar(int id);*/
+    public Task UpdateCar(Car car);
+    public Task<Car?> GetCarById(int id);
 }

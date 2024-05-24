@@ -28,6 +28,41 @@ public class CarRepository : SqLiteBaseRepository, ICarRepository
         return carId;
     }
 
+    public async Task UpdateCar(Car car)
+    {
+        using var cnn = DbConnection();
+        cnn.Open();
+
+        var query = @"UPDATE Cars
+                        SET BrandName = @BrandName, 
+                            Model = @Model, 
+                            HP = @HP, 
+                            Year = @Year, 
+                            FuelType = @FuelType, 
+                            Mileage = @Mileage, 
+                            Price = @Price, 
+                            Description = @Description, 
+                            ImagePath = @ImagePath
+                        WHERE Id = @Id";
+
+        var parameters = new
+        {
+            car.BrandName,
+            car.Model,
+            car.HP,
+            car.Year,
+            car.FuelType,
+            car.Mileage,
+            car.Price,
+            car.Description,
+            car.ImagePath,
+            car.Id
+        };
+
+        await cnn.ExecuteAsync(query, parameters);
+    }
+
+    //Treb sa verific daca e acelasi FuelType
     public async Task<List<Car>> GetCarListOfUser(string userEmail)
     {
         using var cnn = DbConnection();
@@ -48,6 +83,16 @@ public class CarRepository : SqLiteBaseRepository, ICarRepository
         }
 
         return cars.ToList();
+    }
+
+    public async Task<Car?> GetCarById(int id)
+    {
+        using var cnn = DbConnection();
+        cnn.Open();
+        var query = @"SELECT * FROM Cars WHERE Id = @Id";
+        var car = await cnn.QuerySingleOrDefaultAsync<Car>(query, new {Id = id});
+
+        return car;
     }
 
     public async Task<bool> DeleteCar(int carId)

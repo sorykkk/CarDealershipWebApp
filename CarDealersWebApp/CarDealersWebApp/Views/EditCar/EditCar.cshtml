@@ -1,11 +1,9 @@
-﻿
-
-@model CarDealersWebApp.Models.Dealer.CarListViewModel
+﻿@model CarDealersWebApp.Models.Dealer.EditCarViewModel
 @{
-    ViewData["Title"] = "OfferList";
+    ViewData["Title"] = "EditCar";
 }
 
-@if(TempData["success"] != null)
+@if (TempData["success"] != null)
 {
     <div class="alert alert-success">
         @TempData["success"]
@@ -19,11 +17,12 @@
     </div>
 }
 
-<h2>Add new car:</h2>
+<h2>Edit existing car:</h2>
 <hr />
 <br />
 
-<form  enctype="multipart/form-data" method="post">
+
+<form enctype="multipart/form-data" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="mb-3">
 
@@ -31,15 +30,15 @@
             <div class="col-md-8">
                 <div class="input-group">
                     <span class="input-group-text">Brand & Model name: </span>
-                    <input type="text" aria-label="BrandName" placeholder="Toyota" class="form-control" asp-for="NewCarViewModel.BrandName" />
-                    <input type="text" aria-label="ModelName" placeholder="Camry V6 GX" class="form-control" asp-for="NewCarViewModel.Model" />
+                    <input type="text" aria-label="BrandName" class="form-control" asp-for="BrandName" />
+                    <input type="text" aria-label="ModelName" class="form-control" asp-for="Model" />
                 </div>
                 <div class="row ps-5 ms-5">
                     <div class="col ps-5 ms-5">
-                        <span asp-validation-for="NewCarViewModel.BrandName" class="text-danger"></span>
+                        <span asp-validation-for="BrandName" class="text-danger"></span>
                     </div>
-                    <div class="col ps-5 ms-5" >
-                        <span asp-validation-for="NewCarViewModel.Model" class="text-danger"></span>
+                    <div class="col ps-5 ms-5">
+                        <span asp-validation-for="Model" class="text-danger"></span>
                     </div>
                 </div>
             </div>
@@ -53,8 +52,8 @@
                     <span class="input-group-text">Year: </span>
                 </div>
                 <div class="col-md-4 col-sm-8">
-                    <input type="number" placeholder="2015" class="form-control" asp-for="NewCarViewModel.Year"/>
-                    <span asp-validation-for="NewCarViewModel.Year" class="text-danger"></span>
+                    <input type="number" placeholder="2015" class="form-control" asp-for="Year" />
+                    <span asp-validation-for="Year" class="text-danger"></span>
                 </div>
             </div>
         </div>
@@ -65,8 +64,8 @@
                     <span class="input-group-text">Mileage: </span>
                 </div>
                 <div class="col-md-4 col-sm-8">
-                    <input type="number" placeholder="150000" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" asp-for="NewCarViewModel.Mileage">
-                    <span asp-validation-for="NewCarViewModel.Mileage" class="text-danger"></span>
+                    <input type="number" placeholder="150000" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" asp-for="Mileage">
+                    <span asp-validation-for="Mileage" class="text-danger"></span>
                 </div>
                 <span class="input-group-text">km</span>
             </div>
@@ -78,8 +77,8 @@
                     <span class="input-group-text">Horse Power: </span>
                 </div>
                 <div class="col-md-3 col-sm-8">
-                    <input type="number" class="form-control" placeholder="150" asp-for="NewCarViewModel.HP"/>
-                    <span asp-validation-for="NewCarViewModel.HP" class="text-danger"></span>
+                    <input type="number" class="form-control" placeholder="150" asp-for="HP" />
+                    <span asp-validation-for="HP" class="text-danger"></span>
                 </div>
                 <span class="input-group-text">HP</span>
             </div>
@@ -105,10 +104,10 @@
                         <input id="fuelTypeInput" class="form-control" aria-label="Text input with dropdown button" disabled>
                     </div>
                 </div>
-                <span asp-validation-for="NewCarViewModel.FuelType" class="text-danger"></span>
+                <span asp-validation-for="FuelType" class="text-danger"></span>
             </div>
         </div>
-        <input type="hidden" asp-for="NewCarViewModel.FuelType" id="FuelType" />
+        <input type="hidden" asp-for="FuelType" id="FuelType" />
 
 
         <div class="mb-3 row">
@@ -117,8 +116,8 @@
                     <span class="input-group-text">Price: </span>
                 </div>
                 <div class="col-md-4 col-sm-8">
-                    <input type="number" min="0" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" asp-for="NewCarViewModel.Price">
-                    <span asp-validation-for="NewCarViewModel.Price" class="text-danger"></span>
+                    <input type="number" min="0" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" asp-for="Price">
+                    <span asp-validation-for="Price" class="text-danger"></span>
                 </div>
                 <span class="input-group-text">$</span>
             </div>
@@ -128,7 +127,7 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="input-group mb-3">
-                    <input type="file" class="form-control" id="inputGroupFile" asp-for="NewCarViewModel.file">
+                    <input type="file" class="form-control" id="inputGroupFile" asp-for="file">
                     @* <label class="input-group-text" for="inputGroupFile">Upload</label> *@
                 </div>
             </div>
@@ -137,21 +136,15 @@
         <div class="mb-3 row">
             <div class="mb-3 col-md-6 col-sm-12">
                 <label for="exampleFormControlTextarea" class="form-label">Description</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" maxlength="255" placeholder="Short description here..." asp-for="NewCarViewModel.Description"></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" maxlength="255" placeholder="Short description here..." asp-for="Description"></textarea>
             </div>
         </div>
 
     </div>
 
-    <button type="submit" class="btn btn-primary mb-3 mt-1">Create</button>
+    <button type="submit" class="btn btn-primary mb-3 mt-1">Finish</button>
+    <a asp-controller="OfferList" asp-action="OfferList" class="btn btn-danger flex-grow-1 text-center" style="font-size: 0.9rem;">Cancel</a>
 </form>
-
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
 
 <!--Script for dropdown menue-->
 <script>
@@ -169,46 +162,3 @@
         document.getElementById('fuelTypeInput').value = text;
     }
 </script>
-
-
-<br />
-<h2>Existing items:</h2>
-<hr />
-<br />
-
-<div>
-    @if (Model.ExistingCars != null && Model.ExistingCars.Any())
-    {
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-            @foreach (var car in Model.ExistingCars)
-            {
-                <div class="col mb-3">
-                    <div class="card h-100" style="max-width: 16rem; max-height: 24rem;">
-                        <img src="@Url.Content(car.ImagePath)" class="card-img-top" alt="car_image" style="height: 150px; object-fit: cover;">
-                        <div class="card-body" style="padding: 0.5rem;">
-                            <h5 class="card-title" style="font-size: 1.1rem;">@car.BrandName</h5>
-                            <p class="card-text" style="font-size: 1rem;">@car.Model</p>
-                            @if (!string.IsNullOrEmpty(car.ShortDescription))
-                            {
-                                <p class="card-text" style="font-size: 0.9rem;">@car.ShortDescription</p>
-                            }
-                        </div>
-                        <ul class="list-group list-group-flush" style="font-size: 0.9rem;">
-                            <li class="list-group-item">Year: @car.Year</li>
-                            <li class="list-group-item">Mileage: @car.Mileage</li>
-                            <li class="list-group-item">Price: @car.Price</li>
-                        </ul>
-                        <div class="card-footer d-flex justify-content-between p-0">
-                            <a asp-controller="EditCar" asp-action="EditCar" asp-route-id="@car.CarId" class="btn btn-secondary flex-grow-1 text-center" style="font-size: 0.9rem;">Edit</a>
-                            <a asp-action="DeleteCar" asp-route-id="@car.CarId" class="btn btn-danger flex-grow-1 text-center" style="font-size: 0.9rem;">Delete</a>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
-    }
-    else
-    {
-        <p>No cars yet...</p>
-    }
-</div>

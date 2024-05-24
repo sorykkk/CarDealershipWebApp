@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using CarDealersWebApp.Services;
 using CarDealersWebApp.Models.Dealer;
-using CarDealersWebApp.Data.Entities;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CarDealersWebApp.Controllers;
 
@@ -11,12 +9,10 @@ namespace CarDealersWebApp.Controllers;
 public class OfferListController : Controller
 {
     private readonly ICarService carService;
-    private readonly IWebHostEnvironment _webHostEnvironment;
 
-    public OfferListController(IWebHostEnvironment webHostEnvironment,ICarService carService)
+    public OfferListController(ICarService carService)
     {
         this.carService = carService;
-        _webHostEnvironment = webHostEnvironment;
     }
 
     [HttpGet]
@@ -47,7 +43,7 @@ public class OfferListController : Controller
             return View(viewModel);
         }
 
-        string wwwRootPath = _webHostEnvironment.WebRootPath;
+        /*string wwwRootPath = _webHostEnvironment.WebRootPath;
 
         if(viewModel.NewCarViewModel.file != null)
         {
@@ -64,7 +60,9 @@ public class OfferListController : Controller
         else
         {
             viewModel.NewCarViewModel.ImagePath = @"\Images\Car\car_unknown.jpg";
-        }
+        }*/
+
+        viewModel.NewCarViewModel.ImagePath = carService.UploadImage(viewModel.NewCarViewModel.file);
         await carService.CreateCarAsync(viewModel.NewCarViewModel, userEmail);
         TempData["success"] = "Car added successfully to your offer list";
 
@@ -73,7 +71,6 @@ public class OfferListController : Controller
         return RedirectToAction("OfferList");
     }
 
-    //[HttpDelete]
     public async Task<IActionResult> DeleteCar(int id)
     {
         bool success = await carService.DeleteCarByIdAsync(id);
@@ -83,5 +80,10 @@ public class OfferListController : Controller
 
         return RedirectToAction("OfferList");
 
+    }
+
+    public async Task<IActionResult> EditCar(int id)
+    {
+        return RedirectToAction("EditCar", "EditCar", new {id = id});
     }
 }

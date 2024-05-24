@@ -15,7 +15,6 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICarService, CarService>();
 builder.Services.AddScoped<ICarRepository, CarRepository>();
-builder.Services.AddScoped<IImageDriveService, ImageDriveService>();
 builder.Services.AddControllers();
 //
 builder.Services.AddSession();

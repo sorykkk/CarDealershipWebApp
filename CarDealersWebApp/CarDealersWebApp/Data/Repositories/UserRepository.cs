@@ -61,13 +61,13 @@ namespace CarDealersWebApp.Data.Repositories
                 $@"create table IF NOT EXISTS Users 
                 (
                     ID        INTEGER PRIMARY KEY AUTOINCREMENT,
-                    UserType      INTEGER not null,
-                    Name          varchar(100) not null,
-                    Phone         varchar(20),
-                    Password      varchar(255) not null,
-                    Email         varchar(100) not null,
-                    Address       varchar(100),
-                    Country       varchar(100)
+                    UserType  INTEGER not null,
+                    Name      varchar(100) not null,
+                    Phone     varchar(20),
+                    Password  varchar(255) not null,
+                    Email     varchar(100) not null,
+                    Address   varchar(100),
+                    Country   varchar(100)
                 );
 
                 INSERT INTO Users (UserType, Name, Phone, Password, Email, Address, Country) 
