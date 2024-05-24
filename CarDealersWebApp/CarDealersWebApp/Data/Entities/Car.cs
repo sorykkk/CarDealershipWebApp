@@ -25,7 +25,5 @@ public class Car
     public float Price {  get; set; }
     public string? Description { get; set; }
 
-    //if the image is not provided, a default image will be given
-    //public IFormFile ImageFile { get; set; }
     public string ImagePath {  get; set; }
 }

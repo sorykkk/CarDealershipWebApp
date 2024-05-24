@@ -7,11 +7,6 @@ namespace CarDealersWebApp.Controllers;
 
 public class EditCarController : Controller
 {
-    /*public IActionResult EditCar()
-    {
-
-        return View();
-    }*/
     private readonly ICarService carService;
     public EditCarController(ICarService carService)
     {
@@ -44,7 +39,6 @@ public class EditCarController : Controller
 
         return View(viewModel);
     }
-
 
     [HttpPost]
     public async Task<IActionResult> EditCar(EditCarViewModel viewModel)

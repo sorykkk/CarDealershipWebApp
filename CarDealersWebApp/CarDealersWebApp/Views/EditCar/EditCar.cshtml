@@ -124,22 +124,29 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row mb-4">
             <div class="col-md-8">
-                <img src="@Url.Content(Model.ImagePath)" class="card-img-top" alt="car_image" style="height: 150px; object-fit: cover;">
+                <div class="card">
+                    <img src="@Url.Content(Model.ImagePath)" class="card-img-top" alt="car_image" style="height: 300px; object-fit: cover;">
+                </div>
                 @Html.HiddenFor(x => x.ImagePath)
             </div>
         </div>
 
         <!--Upload section-->
-        <div class="row">
+        <div class="row mb-4">
             <div class="col-md-8">
-                <div class="input-group mb-3">
-                    <input type="file" class="form-control" id="inputGroupFile" asp-for="file">
-                    @* <label class="input-group-text" for="inputGroupFile">Upload</label> *@
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Upload a new image</h5>
+                        <div class="input-group">
+                            <input type="file" class="form-control" id="inputGroupFile" asp-for="file">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
 
 
         <div class="mb-3 row">
@@ -150,18 +157,6 @@
         </div>
 
     </div>
-
-    @* <div class="d-flex justify-content-between mb-3 mt-1">
-        <button type="submit" class="btn btn-primary">Finish</button>
-        <a asp-controller="OfferList" asp-action="OfferList" class="btn btn-danger ms-3">Cancel</a>
-    </div>
- *@
-    @* <div class="row mb-3 mt-1">
-        <div class="col d-flex justify-content-between">
-            <button type="submit" class="btn btn-primary me-1" style="max-width: 150px;">Finish</button>
-            <a asp-controller="OfferList" asp-action="OfferList" class="btn btn-danger ms-1" style="max-width: 150px;">Cancel</a>
-        </div>
-    </div> *@
 
     <div class="row mb-3 mt-1">
         <div class="col d-flex justify-content-between">

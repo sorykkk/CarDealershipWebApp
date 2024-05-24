@@ -83,13 +83,9 @@ public class AuthController : Controller
     }
 
     [HttpGet]
-    public async Task <IActionResult> Logout(HomeViewModel viewModel)
+    public async Task <IActionResult> Logout()
     {
-        if (!ModelState.IsValid)
-        {
-            return View(viewModel);
-        }
-
+        HttpContext.Session.SetString("Type", "");
         HttpContext.Session.SetString("Email", "");
         HttpContext.Session.SetString("Name", "");
 
