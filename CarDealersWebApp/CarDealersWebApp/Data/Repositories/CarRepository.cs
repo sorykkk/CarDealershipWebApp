@@ -111,9 +111,10 @@ public class CarRepository : SqLiteBaseRepository, ICarRepository
         using var cnn = DbConnection();
         cnn.Open();
 
-        var query = $@"DROP TABLE Cars ";
-        var cars = await cnn.QueryAsync<Car>(query);
+        var query = @"DROP TABLE IF EXISTS Cars";
+        await cnn.ExecuteAsync(query);
     }
+
 
     private static void CreateCarTable()
     {

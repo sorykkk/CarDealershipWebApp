@@ -1,7 +1,6 @@
 ﻿using CarDealersWebApp.Data.Entities;
 using CarDealersWebApp.Data.Interfaces;
 using Dapper;
-using System.Data.SQLite;
 
 namespace CarDealersWebApp.Data.Repositories;
 
@@ -13,23 +12,25 @@ public class RentRequestRepository : SqLiteBaseRepository, IRentRequestRepositor
             CreateCarTable();
     }
 
-    public async Task<List<RentRequest>> GetRequestForDealerId(int id)
+    public async Task<List<RentRequest>> GetRequestForDealerId(int dealerId)
     {
         using var cnn = DbConnection();
         cnn.Open();
+        CreateCarTable();
         IEnumerable<RentRequest> reqs;
-        CreateCarTable();  // Ensure the table creation is not necessary here in production
 
-        var query = @"SELECT r.* 
-                  FROM RentRequest r
-                  JOIN UserProfile u ON r.CustomerID = u.ID 
-                  JOIN CarProfile c ON c.ID = r.CarID 
-                  WHERE u.ID = @UserId";
+        var query = @"
+                    SELECT DISTINCT r.* 
+                        FROM RentRequest r
+                        JOIN Users u ON r.CustomerID = u.ID 
+                        JOIN Cars c ON c.ID = r.CarID 
+                            WHERE c.DealerID = @DealerId";
 
-        reqs = await cnn.QueryAsync<RentRequest>(query, new { UserId = id });
+        reqs = await cnn.QueryAsync<RentRequest>(query, new { DealerId = dealerId });
 
         return reqs.ToList();
     }
+
 
     public async Task MakeRequestDecision(int id, DecisionType decision, string? description)
     {
@@ -44,6 +45,16 @@ public class RentRequestRepository : SqLiteBaseRepository, IRentRequestRepositor
         var parameters = new { Decision = (int)decision, Id = id, Description = description};
         await cnn.ExecuteAsync(query, parameters);
     }
+
+    public async Task DeleteTable()
+    {
+        using var cnn = DbConnection();
+        cnn.Open();
+
+        var query = @"DROP TABLE IF EXISTS RentRequest";
+        await cnn.ExecuteAsync(query);
+    }
+
 
 
 
