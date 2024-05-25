@@ -9,18 +9,17 @@ public class RentRequestRepository : SqLiteBaseRepository, IRentRequestRepositor
     public RentRequestRepository()
     {
         if (!File.Exists(DbFile))
-            CreateCarTable();
+            CreateReqTable();
     }
 
     public async Task<List<RentRequest>> GetRequestForDealerId(int dealerId)
     {
         using var cnn = DbConnection();
-        cnn.Open();
-        CreateCarTable();
+        cnn.Open(); 
         IEnumerable<RentRequest> reqs;
 
         var query = @"
-                    SELECT DISTINCT r.* 
+                    SELECT r.* 
                         FROM RentRequest r
                         JOIN Users u ON r.CustomerID = u.ID 
                         JOIN Cars c ON c.ID = r.CarID 
@@ -56,12 +55,14 @@ public class RentRequestRepository : SqLiteBaseRepository, IRentRequestRepositor
     }
 
 
-
-
-    private static void CreateCarTable()
+    private static void CreateReqTable()
     {
         using var cnn = DbConnection();
         cnn.Open();
+        var seeding = @"INSERT INTO RentRequest (CarID, CustomerID, SendTime, FromTime, ToTime, Description, Decision) 
+                        VALUES
+                            (3, 3, '2024-05-12 10:05:00', '2024-05-22 11:00:00', '2024-05-22 16:00:00', 'I will have some pets, but I will try to be as clean as possible.', 2),
+                            (4, 3, '2024-05-13 11:11:00', '2024-05-22 11:00:00', '2024-05-22 15:00:00', 'There will be also needed one car for my wife.', 2);";
         cnn.Execute(
             $@"CREATE TABLE IF NOT EXISTS RentRequest
             (
@@ -78,11 +79,8 @@ public class RentRequestRepository : SqLiteBaseRepository, IRentRequestRepositor
                 FOREIGN KEY(CustomerID) REFERENCES Users (ID),
                 FOREIGN KEY(CarID) REFERENCES Cars (ID)
             );
+            {seeding}
         
-            INSERT INTO RentRequest (CarID, CustomerID, SendTime, FromTime, ToTime, Description, Decision) 
-                VALUES
-                    (3, 5, '2024-05-12 10:05:00', '2024-05-22 11:00:00', '2024-05-22 16:00:00', 'I will have some pets, but I will try to be as clean as possible.', 2),
-                    (4, 5, '2024-05-13 11:11:00', '2024-05-22 11:00:00', '2024-05-22 15:00:00', 'There will be also needed one car for my wife.', 2);
             "
             );
     }

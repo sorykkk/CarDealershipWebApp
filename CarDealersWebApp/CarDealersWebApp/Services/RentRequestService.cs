@@ -30,14 +30,14 @@ public class RentRequestService : IRentRequestService
         foreach (var req in reqs)
         {
             RentRequestViewModel viewModel = new RentRequestViewModel();
-            viewModel.From = req.From;
-            viewModel.To = req.To;
+            viewModel.Id = req.Id;
+            viewModel.FromTime = req.FromTime;
+            viewModel.ToTime = req.ToTime;
             viewModel.SendTime = req.SendTime;
             viewModel.Description = req.Description;
             viewModel.Decision = req.Decision;
             viewModel.Car = await carRepository.GetCarById(req.CarId);
-            viewModel.UserName = user.Name;
-            viewModel.UserPhone = user.Phone;
+            viewModel.User = await userRepository.GetUser(req.CustomerId);
 
             viewModels.Add(viewModel);
         }
