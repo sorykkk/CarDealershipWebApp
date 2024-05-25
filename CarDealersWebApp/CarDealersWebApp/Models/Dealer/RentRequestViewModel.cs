@@ -12,6 +12,7 @@ public class RentRequestViewModel
     public DateTime SendTime {  get; set; }
     public string? Description { get; set; }
     public DecisionType Decision {  get; set; } = DecisionType.Undecided;
+    public string? DecisionDescription { get; set; } // it will be set as Description in RentRequest Transaction
 
 }
 

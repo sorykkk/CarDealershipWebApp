@@ -1,5 +1,7 @@
-﻿using CarDealersWebApp.Models.Dealer;
+﻿using CarDealersWebApp.Data.Entities;
+using CarDealersWebApp.Models.Dealer;
 using CarDealersWebApp.Services;
+using Humanizer.Localisation.TimeToClockNotation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarDealersWebApp.Controllers;
@@ -43,5 +45,21 @@ public class RentRequestController : Controller
         if (!getReq)
             TempData["fail"] = "User could not be identified";
         return RedirectToAction("RentRequest");
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> ApproveReq(int Id, string? decisionDescription)
+    {
+        await reqService.MakeDecisionAsync(Id, DecisionType.Approve, decisionDescription);
+        TempData["success"] = "Request Approved";
+        return RedirectToAction("RentRequest", "RentRequest");
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> RejectReq(int Id, string? decisionDescription)
+    {
+        await reqService.MakeDecisionAsync(Id, DecisionType.Reject, decisionDescription);
+        TempData["success"] = "Reject Approved";
+        return RedirectToAction("RentRequest", "RentRequest");
     }
 }

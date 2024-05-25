@@ -17,19 +17,31 @@ public class RentRequestRepository : SqLiteBaseRepository, IRentRequestRepositor
         using var cnn = DbConnection();
         cnn.Open(); 
         IEnumerable<RentRequest> reqs;
+        //await DeleteTable();
+        //CreateReqTable();
 
         var query = @"
                     SELECT r.* 
                         FROM RentRequest r
                         JOIN Users u ON r.CustomerID = u.ID 
                         JOIN Cars c ON c.ID = r.CarID 
-                            WHERE c.DealerID = @DealerId";
+                            WHERE c.DealerID = @DealerId AND r.Decision = @Dec";
 
-        reqs = await cnn.QueryAsync<RentRequest>(query, new { DealerId = dealerId });
+        reqs = await cnn.QueryAsync<RentRequest>(query, new { DealerId = dealerId , Dec = (int)DecisionType.Undecided});
 
         return reqs.ToList();
     }
 
+    public async Task<RentRequest?> GetRentRequestId(int id)
+    {
+        using var cnn = DbConnection();
+        cnn.Open();
+        var query = @"
+                 SELECT * FROM RentRequest
+                    WHERE ID = @Id";
+
+        return await cnn.QueryFirstOrDefaultAsync<RentRequest>(query, new { Id = id });
+    }
 
     public async Task MakeRequestDecision(int id, DecisionType decision, string? description)
     {
@@ -41,7 +53,7 @@ public class RentRequestRepository : SqLiteBaseRepository, IRentRequestRepositor
                             Description = @Description
                             WHERE ID = @Id";
 
-        var parameters = new { Decision = (int)decision, Id = id, Description = description};
+        var parameters = new { Decision = (int)decision, Description = description, Id = id };
         await cnn.ExecuteAsync(query, parameters);
     }
 

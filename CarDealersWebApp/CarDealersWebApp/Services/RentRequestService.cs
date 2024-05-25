@@ -1,7 +1,6 @@
 ﻿using CarDealersWebApp.Data.Entities;
 using CarDealersWebApp.Data.Interfaces;
 using CarDealersWebApp.Models.Dealer;
-using Microsoft.AspNetCore.Mvc;
 
 namespace CarDealersWebApp.Services;
 
@@ -44,4 +43,8 @@ public class RentRequestService : IRentRequestService
         return true;
     }
 
+    public async Task MakeDecisionAsync(int id, DecisionType decision, string? description)
+    {
+        await reqRepository.MakeRequestDecision(id, decision, description);
+    }
 }
