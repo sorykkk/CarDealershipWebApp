@@ -1,21 +1,18 @@
-//using CarDealersWebApp.Data.Context;
-//using CarDealersWebApp.Data.Contracts;
+
 using CarDealersWebApp.Data.Interfaces;
 using CarDealersWebApp.Data.Repositories;
-using CarDealersWebApp.Models.Validation;
 using CarDealersWebApp.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-//builder.Services.AddSingleton<DapperContext>();
-//builder.Services.AddScoped<IDealerRepository, DealerRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICarService, CarService>();
+builder.Services.AddScoped<IRentRequestService, RentRequestService>();
+builder.Services.AddScoped<ICarRepository, CarRepository>();
+builder.Services.AddScoped<IRentRequestRepository, RentRequestRepository>();
 builder.Services.AddControllers();
 //
 builder.Services.AddSession();
@@ -31,6 +28,7 @@ builder.Services.AddAuthorization(options =>
 //
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -50,6 +48,8 @@ app.UseAuthentication();
 
 //
 app.UseSession();
+//
+
 
 app.MapControllerRoute(
     name: "default",

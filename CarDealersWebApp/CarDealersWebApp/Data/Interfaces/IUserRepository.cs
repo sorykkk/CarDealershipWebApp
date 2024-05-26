@@ -8,5 +8,6 @@ namespace CarDealersWebApp.Data.Interfaces
         Task <User?> GetUser(int id);
         Task <User?> GetUserByEmail(string email);
         Task <User?> DeleteUser(int id);
+        Task DeleteTable();
     }
 }

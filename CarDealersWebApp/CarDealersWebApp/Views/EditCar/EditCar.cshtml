@@ -1,0 +1,187 @@
+﻿@model CarDealersWebApp.Models.Dealer.EditCarViewModel
+@{
+    ViewData["Title"] = "Edit Car";
+}
+
+@if (TempData["success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["success"]
+    </div>
+}
+
+@if (TempData["fail"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["fail"]
+    </div>
+}
+
+<h2>Edit existing car:</h2>
+<hr />
+<br />
+
+
+<form enctype="multipart/form-data" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="mb-3">
+
+        <div class="row mb-3">
+            <div class="col-md-8">
+                <div class="input-group">
+                    <span class="input-group-text">Brand & Model name: </span>
+                    <input type="text" aria-label="BrandName" class="form-control" asp-for="BrandName" />
+                    <input type="text" aria-label="ModelName" class="form-control" asp-for="Model" />
+                </div>
+                <div class="row ps-5 ms-5">
+                    <div class="col ps-5 ms-5">
+                        <span asp-validation-for="BrandName" class="text-danger"></span>
+                    </div>
+                    <div class="col ps-5 ms-5">
+                        <span asp-validation-for="Model" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="mb-3 row">
+            <div class="input-group col-md-5 col-sm-11">
+                <div class="col-md-1 col-sm-3">
+                    <span class="input-group-text">Year: </span>
+                </div>
+                <div class="col-md-4 col-sm-8">
+                    <input type="number" placeholder="2015" class="form-control" asp-for="Year" />
+                    <span asp-validation-for="Year" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <div class="input-group">
+                <div class="col-md-1 col-sm-3">
+                    <span class="input-group-text">Mileage: </span>
+                </div>
+                <div class="col-md-4 col-sm-8">
+                    <input type="number" placeholder="150000" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" asp-for="Mileage">
+                    <span asp-validation-for="Mileage" class="text-danger"></span>
+                </div>
+                <span class="input-group-text">km</span>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <div class="input-group">
+                <div class="col-md-2 col-sm-3">
+                    <span class="input-group-text">Horse Power: </span>
+                </div>
+                <div class="col-md-3 col-sm-8">
+                    <input type="number" class="form-control" placeholder="150" asp-for="HP" />
+                    <span asp-validation-for="HP" class="text-danger"></span>
+                </div>
+                <span class="input-group-text">HP</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="input-group mb-3">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Fuel Type:</button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#" onclick="setFuelType(0, 'Petrol')">Petrol</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="setFuelType(1, 'Diesel')">Diesel</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="setFuelType(2, 'Electric')">Electric</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="setFuelType(3, 'Hybrid')">Hybrid</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#" onclick="setFuelType(4, 'Hydrogen')">Hydrogen</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="setFuelType(5, 'Ethanol')">Ethanol</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="setFuelType(6, 'CompressedNaturalGas')">Compressed natural gas</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="setFuelType(7, 'LiquefiedPetroleumGas')">Liquefied petroleum gas</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="setFuelType(8, 'Biodiesel')">Biodiesel</a></li>
+                    </ul>
+                    <div class="col-md-8">
+                        <input id="fuelTypeInput" class="form-control" aria-label="Text input with dropdown button" disabled>
+                    </div>
+                </div>
+                <span asp-validation-for="FuelType" class="text-danger"></span>
+            </div>
+        </div>
+        <input type="hidden" asp-for="FuelType" id="FuelType" />
+
+
+        <div class="mb-3 row">
+            <div class="input-group">
+                <div class="col-md-1 col-sm-3">
+                    <span class="input-group-text">Price: </span>
+                </div>
+                <div class="col-md-4 col-sm-8">
+                    
+                    <input type="number" min="0" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" asp-for="Price">
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <span class="input-group-text">$</span>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <div class="card">
+                    <img src="@Url.Content(Model.ImagePath)" class="card-img-top" alt="car_image" style="height: 300px; object-fit: cover;">
+                </div>
+                @Html.HiddenFor(x => x.ImagePath)
+            </div>
+        </div>
+
+        <!--Upload section-->
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Upload a new image</h5>
+                        <div class="input-group">
+                            <input type="file" class="form-control" id="inputGroupFile" asp-for="file">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="mb-3 row">
+            <div class="mb-3 col-md-6 col-sm-12">
+                <label for="exampleFormControlTextarea" class="form-label">Description</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" maxlength="255" placeholder="Short description here..." asp-for="Description"></textarea>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row mb-3 mt-1">
+        <div class="col d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary flex-grow-1 me-2" style="max-width: 150px;">Finish</button>
+            <a asp-controller="OfferList" asp-action="OfferList" class="btn btn-danger flex-grow-1 ms-2" style="max-width: 150px;">Cancel</a>
+        </div>
+    </div>
+
+
+
+</form>
+
+<!--Script for dropdown menue-->
+<script>
+    document.querySelectorAll('.dropdown-item').forEach(item => {
+        item.addEventListener('click', event => {
+            // Get the text of the clicked item
+            let selectedText = event.target.textContent;
+            // Set the text in the disabled input field
+            document.getElementById('fuelTypeInput').value = selectedText;
+        });
+    });
+
+    function setFuelType(value, text) {
+        document.getElementById('FuelType').value = value;
+        document.getElementById('fuelTypeInput').value = text;
+    }
+</script>

@@ -9,7 +9,9 @@
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
     <PackageReference Include="Dapper" Version="2.1.35" />
+    <PackageReference Include="Google.Apis.Drive.v3" Version="1.68.0.3373" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
@@ -17,7 +19,6 @@
 
   <ItemGroup>
     <Folder Include="Models\Validation\LogIn\" />
-    <Folder Include="Views\Dealer\" />
   </ItemGroup>
 
 </Project>

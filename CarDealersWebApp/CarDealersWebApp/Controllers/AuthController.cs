@@ -4,6 +4,7 @@ using CarDealersWebApp.Services;
 using CarDealersWebApp.Data.Entities;
 using CarDealersWebApp.Exceptions;
 using CarDealersWebApp.Models;
+using CarDealersWebApp.Data.Repositories;
 
 namespace CarDealersWebApp.Controllers;
 
@@ -46,6 +47,7 @@ public class AuthController : Controller
     [HttpGet]
     public IActionResult Login()
     {
+
         return View();
     }
 
@@ -56,6 +58,7 @@ public class AuthController : Controller
         {
             return View(viewModel);
         }
+        
         User? loggedUser = null;
         try
         {
@@ -83,13 +86,9 @@ public class AuthController : Controller
     }
 
     [HttpGet]
-    public async Task <IActionResult> Logout(HomeViewModel viewModel)
+    public async Task <IActionResult> Logout()
     {
-        if (!ModelState.IsValid)
-        {
-            return View(viewModel);
-        }
-
+        HttpContext.Session.SetString("Type", "");
         HttpContext.Session.SetString("Email", "");
         HttpContext.Session.SetString("Name", "");
 

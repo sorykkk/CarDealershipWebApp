@@ -1,0 +1,103 @@
+﻿@model CarDealersWebApp.Models.Dealer.IncomingRequestList
+@{
+    ViewData["Title"] = "Orders";
+}
+
+@if (TempData["success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["success"]
+    </div>
+}
+
+@if (TempData["fail"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["fail"]
+    </div>
+}
+
+<br />
+<h2>Incoming orders:</h2>
+<hr />
+<br />
+
+<div>
+    @if (Model.ExistingRequests != null && Model.ExistingRequests.Any())
+    {
+        @foreach (var req in Model.ExistingRequests)
+        {
+            <div class="card text-center mb-3">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs" id="myTab-@req.Id" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="req-tab-@req.Id" data-bs-toggle="tab" href="#req-@req.Id" role="tab" aria-controls="req-@req.Id" aria-selected="true">Request Details</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="car-tab-@req.Id" data-bs-toggle="tab" href="#car-@req.Id" role="tab" aria-controls="car-@req.Id" aria-selected="false">Car Details</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="user-tab-@req.Id" data-bs-toggle="tab" href="#user-@req.Id" role="tab" aria-controls="user-@req.Id" aria-selected="false">Customer Details</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card-body tab-content" id="myTabContent-@req.Id">
+                    <div class="tab-pane fade show active" id="req-@req.Id" role="tabpanel" aria-labelledby="req-tab-@req.Id">
+                        <h5 class="card-title">From: @req.FromTime To: @req.ToTime</h5>
+                        <p class="card-text">Description: @req.Description</p>
+                        <p class="card-text">Send Time: @req.SendTime</p>
+                        
+                        <input id="decisionDescription-@req.Id" type="text" class="form-control mb-3" placeholder="Enter your decision note here" />
+                        
+                        <form method="post" asp-action="ApproveReq" asp-controller="RentRequest" class="d-inline">
+                            <input type="hidden" name="Id" value="@req.Id" />
+                            <input type="hidden" name="decisionDescription" id="approveDecisionDescription-@req.Id" />
+                            <button type="submit" class="btn btn-success">Approve</button>
+                        </form>
+                        
+                        <form method="post" asp-action="RejectReq" asp-controller="RentRequest" class="d-inline">
+                            <input type="hidden" name="Id" value="@req.Id" />
+                            <input type="hidden" name="decisionDescription" id="rejectDecisionDescription-@req.Id" />
+                            <button type="submit" class="btn btn-danger">Reject</button>
+                        </form>
+                    </div>
+
+                    <div class="tab-pane fade" id="car-@req.Id" role="tabpanel" aria-labelledby="car-tab-@req.Id">
+                        <h5 class="card-title">@req.Car.BrandName @req.Car.Model</h5>
+                        <p class="card-text">Year: @req.Car.Year</p>
+                        <p class="card-text">Mileage: @req.Car.Mileage</p>
+                        <p class="card-text">Price: $@req.Car.Price</p>
+                    </div>
+
+                    <div class="tab-pane fade" id="user-@req.Id" role="tabpanel" aria-labelledby="user-tab-@req.Id">
+                        <h5 class="card-title">@req.User.Name</h5>
+                        <p class="card-text">Email: @req.User.Email</p>
+                        <p class="card-text">Phone: @req.User.Phone</p>
+                        <p class="card-text">Address: @req.User.Address</p>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>No orders yet...</p>
+    }
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const forms = document.querySelectorAll("form");
+
+        forms.forEach(form => {
+            form.addEventListener("submit", function() {
+                const reqId = this.querySelector("input[name='Id']").value;
+                const decisionDescription = document.querySelector(`#decisionDescription-${reqId}`).value;
+                this.querySelector("input[name='decisionDescription']").value = decisionDescription;
+            });
+        });
+    });
+</script>
+
+

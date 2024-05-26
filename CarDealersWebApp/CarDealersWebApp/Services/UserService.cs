@@ -4,8 +4,6 @@ using CarDealersWebApp.Data.Repositories;
 using CarDealersWebApp.Exceptions;
 using CarDealersWebApp.Models.Auth;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authentication;
 
 namespace CarDealersWebApp.Services;
 
@@ -48,14 +46,14 @@ public class UserService : IUserService
         throw new NotImplementedException();
     }
 
-    public async Task<User?> GetUserAsync(string email)//, string password
+    public async Task<User?> GetUserAsync(string email)
     {
         User? user = await userRepository.GetUserByEmail(email);
 
         return user;
     }
 
-    public async Task<User> LoginUserAsync(string email, string password)//Claim in this function
+    public async Task<User> LoginUserAsync(string email, string password)
     {
         User? existingUser = await userRepository.GetUserByEmail(email);
         string errorMessage = "Incorrect email or password";
@@ -81,20 +79,6 @@ public class UserService : IUserService
             claims.Add(new Claim(ClaimTypes.Role, "Customer"));
         }
 
-        /*var identity = new ClaimsIdentity(claims, "login");
-        var principal = new ClaimsPrincipal(identity);
-
-        await httpContextAccessor.HttpContext.SignInAsync(principal);*/
-
         return existingUser;
-        //claim
-        //daca e dealer (UserType (Type))
-        //daca e user claim pt user
-        //daca e dealer claim pt dealer
-        
-
-        //pot sa decid ce sa afiseze pe view
-        //asta in loc de HTTP.Session
-        
     }
 }
