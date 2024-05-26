@@ -62,7 +62,6 @@ public class CarRepository : SqLiteBaseRepository, ICarRepository
         await cnn.ExecuteAsync(query, parameters);
     }
 
-    //Treb sa verific daca e acelasi FuelType
     public async Task<List<Car>> GetCarListOfUser(string userEmail)
     {
         using var cnn = DbConnection();
